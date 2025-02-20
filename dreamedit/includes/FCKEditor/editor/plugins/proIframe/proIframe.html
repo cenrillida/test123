@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+
+<title>Link Properties</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex, nofollow" />
+
+<script src="./../../dialog/common/fck_dialog_common.js" type="text/javascript"></script>
+<script src="./proIframe.js" type="text/javascript"></script>
+
+</head>
+<body scroll="no" style="OVERFLOW: hidden">
+<div id="divInfo" style="DISPLAY: none">
+	<span fckLang="DlgLnkType">Link Type</span><br />
+	<div id="divLinkTypeUrl">
+		<table cellspacing="0" cellpadding="0" border="0" dir="ltr">
+			<tr>
+				<td colspan="2" valign="top">
+					<table cellSpacing="0" cellPadding="0" border="0">
+						<tr>
+							<td>
+								<span fckLang="DlgLnkProto">Protocol</span><br />	
+								<select name="cmbLinkProtocol" id="cmbLinkProtocol">
+									<option value="http://" selected="selected">http://</option>
+									<option value="https://">https://</option>
+									<option value="ftp://">ftp://</option>
+									<option value="news://">news://</option>
+									<option value="" fckLang="DlgLnkProtoOther">&lt;other&gt;</option>
+								</select>
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								<span fckLang="DlgLnkURL">URL</span><br />	
+								<input id="txtUrl" name="txtUrl" type="text" style="width:270px;" onchange="OnUrlChange();" onkeyup="OnUrlChange();" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" align="right">
+								<div id="divBrowseServer"> 
+									<input id="button" name="button" type="button" onclick="BrowseServer();" value="Browse Server" fckLang="DlgBtnBrowseServer" />
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right">&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="left" valign="top">
+					<table cellSpacing="0" cellPadding="0" border="0">
+						<tr> 
+							<td align="right">
+								<span fckLang="DlgIFrameScrolling">Scrolling</span>:
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								<select name="cmbScrolling" id="cmbScrolling" style="width:100px;">
+									<option fckLang="DlgIFrameAuto" value="auto">Auto</option>
+									<option fckLang="DlgIFrameYes" value="yes">Yes</option>
+									<option fckLang="DlgIFrameNo" value="no">No</option>
+								</select>
+							</td>
+						</tr>
+
+						<tr> 
+							<td align="right">
+								<span fckLang="DlgIFrameBorder">Frameborder</span>:
+							</td>
+							<td>&nbsp;</td>
+							<td>
+								<select name="cmbFrameborder" id="cmbFrameborder" style="width:100px;">
+									<option fckLang="DlgIFrameYes" value="1">Yes</option>
+									<option fckLang="DlgIFrameNo" value="0">No</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span fckLang="DlgImgAlign">Align</span>:</td>
+							<td>&nbsp;</td>
+							<td>
+								<select name="cmbAlign" id="cmbAlign" style="width:100px;">
+									<option fckLang="DlgImgAlignLeft" value="left">Left</option>
+									<!--<option fckLang="DlgImgAlignCenter" value="center">Center</option>-->
+									<option fckLang="DlgImgAlignRight" value="right">Right</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td align="right" valign="top">
+					<table cellSpacing="0" cellPadding="0" border="0">
+						<tr>
+							<td align="right"><span fckLang="DlgTableWidth">Width</span>:</td>
+							<td>&nbsp;</td>
+							<td>
+								<input id="txtWidth" name="txtWidth" type="text" maxLength="4" size="3" value="200" onkeypress="return IsDigit(event);">
+							</td>
+							<td>&nbsp;&nbsp;</td>
+							<td>
+								<select id="selWidthType" name="selWidthType">
+									<option fckLang="DlgTableWidthPx" value="pixels" selected>pixels</option>
+									<option fckLang="DlgTableWidthPc" value="percent">percent</option>
+								</select>
+							</td>
+						</tr>
+						<tr> 
+							<td align="right"><span fckLang="DlgTableHeight">Height</span>:</td>
+							<td>&nbsp;</td>
+							<td>
+								<input id="txtHeight" name="txtHeight" type="text" maxLength="4" size="3" onkeypress="return IsDigit(event);">
+							</td>
+							<td>&nbsp;&nbsp;</td>
+							<td>&nbsp;<span fckLang="DlgTableWidthPx">pixels</span></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div id="divAttribs" style="DISPLAY: none"> 
+	<table width="350" cellspacing="0" cellpadding="0" border="0">
+		<tr> 
+			<td valign="top" width="50%">
+				<span fckLang="DlgGenId">Id</span><br />
+				<input id="txtAttId" name="txtAttId" type="text" style="WIDTH: 145" />	
+			</td>
+			<td width="1"></td>
+			<td valign="top"> </td>
+		</tr>
+		<tr> 
+			<td valign="top" width="50%">
+				<span fckLang="DlgGenName">Name</span><br />	
+				<input id="txtAttName" name="txtAttName" type="text" style="WIDTH: 145" />	
+			</td>
+			<td width="1"></td>
+			<td valign="top"> </td>
+		</tr>
+		<tr> 
+			<td valign="top" width="50%">&nbsp;</td>
+			<td width="1"></td>
+			<td valign="top"></td>
+		</tr>
+		<tr> 
+			<td colspan="3">
+				<span fckLang="DlgGenStyle">Style</span><br />
+				<input id="txtAttStyle" name="txtAttStyle" type="text" style="WIDTH: 335" />	
+			</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Tree samples. dhtmlXTree - Initializae from HTML</title>
+	<meta name="KEYWORDS" content="dhtmlxtree, dhtml tree, javascript tree, javascript, DHTML, tree, tree menu, dynamical loading, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, treeview, navigation, menu, tree control, script, javascript navigation, web-site, dynamic, javascript tree menu, dhtml tree menu, dynamic tree, folder tree, item, node, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+	<meta name="DESCRIPTION" content="Cross-browser DHTML tree menu with XML support and powerful API. This customizable DHTML JavaScript Tree Menu allows you to assign different functions to event handlers">
+
+</head>
+<style>
+	body, . {font-size:12px;font-family:arial;}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	DIV.txt{
+		margin-top:10px;
+		font-size:12px;font-family:arial;
+	}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+	div.h3{
+		padding-left:10px;
+		padding-right:10px;
+		margin-bottom:10px;
+		margin-top:10px;
+		font-size:14px;
+		font-family: verdana;
+		color:white;
+		background-color:green;
+		width:200px;
+		white-space:nowrap;
+	}
+</style>
+<body onload="doOnLoad()">
+	<div class="hdr">DHTML JavaScript Tree samples </div>
+	<h1>Initialize Tree from HTML</h1>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXTree.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXTree.js"></script>
+	<script  src="../js/dhtmlXTree_start.js"></script>
+	<script>
+		function doOnLoad(){
+			
+		}
+	</script>
+<div class="txt">
+	To do automatic initialization:
+	<ul>
+		<li><strong>dhtmlXTree_start.js</strong> should be included into page</li>
+		<li>top DIV element should have <strong>class</strong> attribuyte set to <em>dhtmlxTree</em></li>
+		<li>some attributes of top DIV element will define tree specific properties
+			<ul>
+				<li>setImagePath - set path to images used by tree</li>
+				<li>id - name of javascript variable referenced to tree object</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<div class="h3">Initilize from list</div>
+	<table>
+		<tr>
+			<td>
+	<div id="treeboxbox_tree" setImagePath="../imgs/" xclass="dhtmlxTree" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;">
+		<ul>
+			<li>Root</li>
+			<ul>
+				<li>Child1
+				<ul>
+					<li>Child 1-1</li>
+				</ul>
+				</li>
+				<li>Child2</li>
+				<li><b>Bold</b> <i>Italic</i></li>
+			</ul>
+			</li>
+		</ul>
+	</div>
+			</td>
+			<td>
+	<div id="treeboxbox_tree" setImagePath="../imgs/" class="dhtmlxTree" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;">
+		<ul>
+			<li>Root</li>
+			<ul>
+				<li>Child1
+				<ul>
+					<li>Child 1-1</li>
+				</ul>
+				</li>
+				<li>Child2</li>
+				<li><b>Bold</b> <i>Italic</i></li>
+			</ul>
+			</li>
+		</ul>
+	</div>
+			</td>
+		</tr>
+	</table>
+<XMP>
+	<div 
+		class="dhtmlxTree" 
+		id="treeboxbox_tree" 
+		setImagePath="../imgs/" 
+		style="width:250px; height:218px;overflow:auto;">
+		
+		<ul>
+			<li>Root</li>
+			<ul>
+				<li>Child1
+				<ul>
+					<li>Child 1-1</li>
+				</ul>
+				</li>
+				<li>Child2</li>
+				<li><b>Bold</b> <i>Italic</i></li>
+			</ul>
+			</li>
+		</ul>
+	</div>
+</XMP>
+	
+<!--- Start --->	
+<div class="h3">Initialize from inline XML structure</div>
+<div class="txt">It is possible to use standard dhtmlxTree XML structure enclosed in <strong>XMP</strong>
+tag inside DIV element which is tree container.<br>
+For more details about dhtmlxTree XML structure see <a href="http://www.scbr.com/docs/products/dhtmlxTree/doc/guide.html#xmlload">User Guide</a></div>
+<br>
+<div id="treeboxbox_tree2" setImagePath="../imgs/" class="dhtmlxTree" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;">
+	<xmp>
+	<item text="Root" open="1" id="11">
+		<item text="Child1" select="1" open="1" id="12">
+			<item text="Child1-1" id="13"/>
+		</item>
+		<item text="Child2" id="14"/>
+		<item id="15" text="Text"/>
+	</item>
+	</xmp>
+</div>
+
+<XMP>
+	<div id="treeboxbox_tree2" setImagePath="../imgs/" class="dhtmlxTree" >
+	<xmp>
+		<item text="Root" open="1" id="11">
+			<item text="Child1" select="1" open="1" id="12">
+				<item text="Child1-1" id="13"/>
+			</item>
+			<item text="Child2" id="14"/>
+			<item id="15" text="Text"/>
+		</item>
+	< /xmp>
+	</div>
+</XMP>
+
+
+<!--- Start --->	
+<div class="h3">Initialize from HTML using script command</div>
+<div class="txt">It is possible to convert existing html structure with script command</div>
+<div id="listBox" setImagePath="../imgs/" style="width:250px; height:218px; background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;">
+	<ul>
+		<li>Root</li>
+		<ul>
+			<li>Child1
+			<ul>
+				<li>Child 1-1</li>
+			</ul>
+			</li>
+			<li>Child2</li>
+			<li><b>Bold</b> <i>Italic</i></li>
+		</ul>
+		</li>
+	</ul>
+</div>
+<button onclick="var myTree = dhtmlXTreeFromHTML('listBox');">Convert</button>
+
+<XMP>
+	//1st parameter is id of DIV element to initialize tree from.
+	var myTree = dhtmlXTreeFromHTML('listBox');
+</XMP>
+<hr>
+
+
+
+<p><a href="http://www.scbr.com/docs/products/dhtmlxTree/index.shtml" style="font-weight:bold;">Go to the dhtmlxTree main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+	
+</body>
+</html>

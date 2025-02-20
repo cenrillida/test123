@@ -1,0 +1,1 @@
+<?php include_once("block_magazine_right.php");?>

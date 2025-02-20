@@ -1,0 +1,1206 @@
+<script type='text/javascript'>
+function ChRub(param)
+{
+   var on=document.getElementById('RubOn').style;
+   var off=document.getElementById('RubOff').style;
+   if(param=='on')
+      {
+      	  on.display='block';
+      	  off.display='none';
+      }
+    else
+      {
+          on.display='none';
+          off.display='block';
+      }
+}
+</script>
+<?
+
+// Список публикаций
+
+global $DB, $_CONFIG, $site_templater;
+
+
+$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."top.text.html");
+
+// print_r($_SERVER);
+// echo "<br />____".$_SERVER[QUERY_STRING];
+if (!empty($_TPL_REPLACMENT['COUNT']))
+	$nn_page=$_TPL_REPLACMENT['COUNT'];
+else
+    $nn_page=15;
+$pg = new Pages();
+//$DB = DbSimple_Generic::connect($_CONFIG["global"]["db_connect"]["db_type"] . "://" . $_CONFIG["global"]["db_connect"]["login"] . ":" . $_CONFIG["global"]["db_connect"]["password"] . "@" . $_CONFIG["global"]["db_connect"]["host"] . "/" . $_CONFIG["global"]["db_connect"]["db_name"]);
+
+if (isset($_REQUEST[search_fio])) $_POST[fio]=str_replace("_"," ",$_REQUEST[search_fio]);
+if (isset($_REQUEST[tyear])) $_POST[other_year]=$_REQUEST[tyear];
+if (isset($_REQUEST[tyear])) $_POST[tyear]=$_REQUEST[tyear];
+if (isset($_REQUEST['key'])) $_POST[keyword1]=$_REQUEST['key'];
+if (isset($_REQUEST[tpubl_id])) $_POST[tpubl_id]=$_REQUEST[tpubl_id];
+if (isset($_REQUEST[fio]))  $_POST[fio]=str_replace("_"," ",$_REQUEST[fio]);
+if (isset($_GET[fid]))  $_POST[fio]=str_replace("_"," ",$_GET[fid]);
+////////////
+if (empty($_POST[name])) $_POST[name]=$_POST[pname];
+if (isset($_REQUEST[alffio])) $_POST[alffio]=$_REQUEST[alffio];
+if (isset($_REQUEST[alfname])) $_POST[alfname]=$_REQUEST[alfname];
+if(!empty($_POST[pname])) $_POST[pname]=$_POST[pname];
+if(!empty($_POST[ppname])) $_POST[ppname]=$_POST[ppname];
+if (isset($_REQUEST[rub])) $_POST[rubricator]=str_replace("_"," ",$_REQUEST[rub]);
+if (isset($_REQUEST[rub2])) $_POST[rub2]=$_REQUEST[rub2];
+if (isset($_GET[rub2])) $_POST[rub2]=$_GET[rub2];
+//////////
+
+if (isset($_REQUEST[name])) $_POST[name]=str_replace("_"," ",$_REQUEST[name]);
+if (isset($_REQUEST[vid])) $_POST[vid]=$_REQUEST[vid];
+if (isset($_REQUEST[isbn])) $_POST[isbn]=$_REQUEST[isbn];
+
+if (isset($_REQUEST[rub2])) $_POST[rubricator]=str_replace("_"," ",$_REQUEST[rub2]);
+if (isset($_REQUEST[keyword1])) $_POST[keyword1]=str_replace("_"," ",$_REQUEST[keyword1]);
+if (isset($_REQUEST[keyword2])) $_POST[keyword2]=str_replace("_"," ",$_REQUEST[keyword2]);
+if (isset($_REQUEST[keyword3])) $_POST[keyword3]=str_replace("_"," ",$_REQUEST[keyword3]);
+if (isset($_REQUEST[other_year])) $_POST[other_year]=$_REQUEST[other_year];
+if (isset($_REQUEST[fullt])) $_POST[fullt]=$_REQUEST[fullt];
+
+if (isset($_REQUEST['last'])) $_POST['last']=$_REQUEST['last'];
+
+
+if (isset($_REQUEST[year])) {
+   if (is_array($_REQUEST[year]))
+   {
+      $_POST[year][0]=$_REQUEST[year][0];
+   }
+   else
+   {
+     $_POST[year][0]=$_REQUEST[year];
+   }
+}
+if (isset($_REQUEST[type0])) $_POST[type0][0]=$_REQUEST[type0];
+if (isset($_REQUEST[type1])) $_POST[type1][0]=$_REQUEST[type1];
+if (isset($_REQUEST[type2])) $_POST[type2][0]=$_REQUEST[type2];
+
+
+if (empty($_REQUEST['order']))
+{
+ $order= " order by name ";
+ $ordertxt="Сортировка по алфавиту";
+}
+else
+{
+   $order = " ORDER BY ".$_REQUEST['order']. " desc";
+   if (strpos($_REQUEST[order], 'year')!=0) $sorttxt="Сортировка по году издания";
+   elseif (strpos($_REQUEST[order], 'relevant')!=0) $sorttxt="Сортировка по релевантности";
+   else $ordertxt="Сортировка по алфавиту";
+}
+/*
+if(!empty($_GET[fid]))
+{
+  $fio0=$DB->select("SELECT CONCAT(surname,' ',name,' ',fname) as fio FROM persons WHERE id=".$_GET[fid]);
+  $_POST[fio]=$fio0[0][fio];
+
+}
+*/
+if (!empty($_REQUEST['name']))
+{
+ $order= " ORDER BY relevant DESC";
+ $ordertxt="Сортировка по релевантности";
+}
+mysql_connect($_CONFIG['global']['db_connect']['host'], $_CONFIG['global']['db_connect']['login'], $_CONFIG['global']['db_connect']['password']);
+mysql_select_db($_CONFIG['global']['db_connect']['db_name']);
+
+$iyear='';
+$rublist0=$DB->select("SELECT  p.icont_text AS name,p2.icont_text AS name_en,p.el_id AS id FROM adm_directories_content AS p
+                       INNER JOIN adm_directories_content AS p2 ON p2.el_id = p.el_id AND p2.icont_var='text_en'
+                       INNER JOIN adm_directories_content AS p3 ON p3.el_id = p.el_id AND p3.icont_var='order'
+                       WHERE  p.icont_var='text' ORDER BY p3.icont_text");
+
+
+// Вывод навигации в заголовке
+
+
+echo "<br /><br />";
+echo $_TPL_REPLACMENT['CONTENT'];
+if (isset($_POST[last])) echo $_TPL_REPLACMENT['CONTENT_LAST'];
+//echo "<br /><br />";
+echo "<div style='text-align:left;' class='publ'>";
+echo "<a href='/?page_id=".$_REQUEST[page_id]." name='0'></a>";
+
+echo "<font size='2' style='bold'><strong>";
+echo "<a title='Список всех публикаций' href='/index.php?page_id=".$_REQUEST[page_id]."'> Все публикации"."</a>";
+
+echo "&nbsp;&nbsp; | &nbsp;&nbsp; <strong><a title='Расширенный поиск публикаций'  href='/index.php?page_id=".$_TPL_REPLACMENT['FULL_ID'].
+     "'>" .
+     "расширенный поиск публикаций </a>";
+echo "<br /><a href=/index.php?page_id=".$_REQUEST[page_id]."&last><strong>Список последних поступлений в каталог </strong>(не зависимо от даты издания)
+</a>";
+
+echo "</strong></font>";
+
+
+
+if (isset($_POST[last])) echo "<br /><br /><strong>Выводится список последних поступлений в каталог</strong><br />";
+else
+if (isset($_GET['head'])) echo "<br /><br /><strong>".str_replace("_"," ",$_GET['head'])."</strong><br />";
+// echo "<br /><span class='hr'>&nbsp;</span>";
+
+
+if (!empty($_REQUEST[fullt]))
+   echo "<h3 />Полнотекстовые версии</h3>";
+
+///// Рубрикатор
+echo "<br /><br /><hr />";
+if (!isset($_GET[printmode]))
+{
+   $display='none';$display2='block';
+
+echo "<div id='RubOn' style='display:".$display."';>";
+echo "<table style='width:70%;'>";
+echo "<tr><td align='right'>";
+echo "<a href=# title='Скрыть рубрикатор' onClick=ChRub('off')>Скрыть рубрикатор</a><br />";
+echo "</td></tr></table>";
+echo "<b><h3>Список рубрик</h3></b>";
+
+echo "<table  style='width:90%'>";
+$nrub=100;ceil(count($rublist0)/2);
+$i=0;
+
+/*
+if (!isset($_GET[rub2]))
+   echo "<tr><td colspan='4'><a href=/index.php?page_id=".$_REQUEST[page_id]."><b>Все рубрики</b></a></td></tr>";
+else
+   echo "<tr><td colspan='4'><a href=/index.php?page_id=".$_REQUEST[page_id].">Все рубрики</a></td></tr>";
+*/
+//echo "<tr><td colspan='4'>&nbsp;</td></tr>";
+echo "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>";
+$trub="";
+foreach ($rublist0 as $rublist)
+{
+
+
+
+    if ($_GET[rub2]==$rublist[id])
+    {
+    	echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=/index.php?page_id=".$_REQUEST[page_id]."&rub2=".$rublist[id]."><b>".$rublist[name]."</b></a><br />";
+    	$rubname=$rublist[name];
+  	}
+  	else
+        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=/index.php?page_id=".$_REQUEST[page_id]."&rub2=".$rublist[id].">".$rublist[name]."</a><br />";
+
+	 $i++;
+	 if($i==$nrub) echo "</td><td>&nbsp;&nbsp;&nbsp;</td><td>";
+}
+echo "</td></tr><tr><td colspan='4'>&nbsp;</td></tr></table>";
+echo "</div>";
+} // Не печать
+else
+{
+if (!empty($_GET[rub2]))
+{
+
+ $rlist0=$DB->select("SELECT  p.icont_text AS name,p2.icont_text AS name_en,p.el_id AS id FROM adm_directories_content AS p
+                       INNER JOIN adm_directories_content AS p2 ON p2.el_id = p.el_id AND p2.icont_var='text_en'
+                       WHERE p.el_id=".$_GET[rub2]." AND p.icont_var='text'");
+   $rubname=$rlist0[0][name];
+   echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>".$rublist[name]."</b></a><br />";
+
+
+}
+}
+ if (!empty($_POST[rub2])  && $_POST[rub2]!="*")
+ {
+     $rlist00=$DB->select("SELECT  p.icont_text AS name,p2.icont_text AS name_en,p.el_id AS id FROM adm_directories_content AS p
+                       INNER JOIN adm_directories_content AS p2 ON p2.el_id = p.el_id AND p2.icont_var='text_en'
+                       WHERE p.el_id=".$_POST[rub2]." AND p.icont_var='text'");
+     echo "<div><h3>Рубрика: <b>".$rlist00[0][name]."</b> </h3>";
+     $rubreq="&rub2=".$_POST[rub2];
+     echo "</div>";
+  }
+// else
+//    echo "<div style='float:left;'><font size='3'>Рубрика: <b>все</b>   </font></div>";
+
+
+ if (!isset($_GET[printmode]))
+{
+echo "<div id='RubOff' style='display:".$display2."';>";
+echo "<a href=# title='Показать рубрикатор' onClick=ChRub('on') style='margin-top:10px; '><b><font size='2'>Показать рубрикатор</font></b></a>";
+echo "</div>";
+echo "<br /><hr />";
+}
+/*
+if (empty($_REQUEST[rub2]))
+ echo  "<br />";//<h3>Все рубрики</h3>";
+else
+{
+ $rr=$DB->select("SELECT * from publ_rubric WHERE id=".$_REQUEST[rub2]);
+ echo "<br /><br /><h3>Рубрика: ".$rr[0][name]."</h3>";
+}
+*/
+
+//////
+///// Алфавит
+  $style="bold";
+  echo "<table   border='0' style='width:100%'>";
+  echo "<tr>";
+  echo "<td><span style='font-size:12px;'>АВТОРЫ: &nbsp;&nbsp;&nbsp;&nbsp;</span></td>";
+  echo "<td>";
+ for ($ibukva=192;$ibukva<=223;$ibukva++) {
+    if ((chr($ibukva)!="Й" && chr($ibukva)!="Ь"   && chr($ibukva)!="Ы" && chr($ibukva)!="Ъ"))
+    {
+       if (!empty($_POST[alffio]) && $_POST[alffio]==chr($ibukva))
+          $bb="<b>".chr($ibukva)."</b>";
+       else
+          $bb=chr($ibukva);
+       if ($ibukva>192) $style="normal";
+         echo "<a href=/index.php?page_id=".$_REQUEST[page_id]."&alffio=".chr($ibukva).$request_string2.">
+         <span style='font-size:12px;'>". $bb."</span></a><span style='font-size:12px;'>&nbsp</span>";
+    }
+ }
+ echo "<a href=/index.php?page_id=".$_REQUEST[page_id]."&alffio=Z".$request_string2."><span style='font-size:12px;'> A..Z &nbsp;&nbsp; </span></a>";
+   echo "<a href=/index.php?page_id=".$_REQUEST[page_id]."&alffio=*><span style='font-size:12px;'>ВСЕ</a>&nbsp;&nbsp;</span>";
+
+  echo "</td>";
+echo "</tr>";
+//echo "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>";
+/*
+echo "<tr>";
+
+ echo "<td><span style='font-size:12px;'>НАЗВАНИЕ: &nbsp;</span></td>";
+ echo "<td>";
+ for ($ibukva=192;$ibukva<=223;$ibukva++) {
+    if ((chr($ibukva)!="Й" && chr($ibukva)!="Ь"   && chr($ibukva)!="Ы" && chr($ibukva)!="Ъ"))
+    {
+       if (!empty($_POST[alfname]) && $_POST[alfname]==chr($ibukva))
+          $bb="<b>".chr($ibukva)."</b>";
+       else
+           $bb=chr($ibukva);
+       if ($ibukva>192) $style="normal";
+         echo "<a href=/index.php?page_id=".$_REQUEST[page_id]."&alfname=".chr($ibukva).$request_string2.">
+         <span style='font-size:12px;'>". $bb."</span></a><span style='font-size:12px;'>&nbsp;</span>";
+    }
+ }
+ echo "<a href=/index.php?page_id=".$_REQUEST[page_id]."&alfname=Z".$request_string2."><span style='font-size:12px;'> A..Z &nbsp;&nbsp; </span></a>";
+   echo "<a href=/index.php?page_id=".$_REQUEST[page_id]."&alfname=*><span style='font-size:12px;'>ВСЕ</span></a>&nbsp;&nbsp;  ";
+
+ echo "</td></tr>";
+ */
+echo "</table>";
+// echo "<hr /><br />";
+echo "<br />";
+ echo "<form name=publ method=post action=/index.php?page_id=".$_REQUEST[page_id]."onSubmit=''>";
+ echo "
+      Название начинается с: <input style='font-size:13px;color:#333333;' name='ppname' type=text size='69' value=".$_GET[search].">";
+
+ echo "</form>";
+ echo "<br />";
+
+//print_r($_POST);
+/////
+$request_string="";
+
+ $search_string_pname=1;
+	$search_string_mname=1;
+	$search_string_pname0="' ' AS relevant,";
+	$search_string_mname0="' ' AS relevant,";
+	$search_string=1;
+
+if (count($_POST) >0) {
+		    $search_string_name="";
+		// Найти популярную тему
+if (!empty($_POST[alffio]))
+   {
+        $request_string.="&alffio=".$_POST[alffio];
+        $rows=$DB->select("SELECT DISTINCT id,CONCAT(surname,' ',substring(name,1,1),'.',substring(fname,1,1),'.') AS fio FROM persons WHERE substring(surname,1,1)='".$_POST[alffio]."'");
+        $sfio="(avtor LIKE '".$_POST[alffio]."%' OR avtor  LIKE '%<br>".$_POST[alffio]."%' OR ";
+        foreach($rows as $row)
+        {
+        	$sfio.=" avtor LIKE '".$row[id]."<br>%' OR avtor LIKE '%<br>".$row[id]."' OR avtor LIKE '%<br>".$row[id]."<br>%' OR ";
+            $sfio0 =
+            $fioa[$row[fio]]=$row[id];
+        }
+        $sfio=substr($sfio,0,-3).") ";
+
+        $search_string.=" AND ".$sfio;
+// Найти других авторов
+
+        $rowsa=$DB->select("SELECT avtor FROM publ WHERE ((avtor LIKE '".$_POST[alffio]."%' OR avtor  LIKE '%<br>".$_POST[alffio]."%')) and STATUS=1");
+        foreach($rowsa as $row)
+        {
+        	 $fff=explode("<br>",$row[avtor]);
+        	 foreach($fff as $ff2)
+        	 {
+        	    $f2=trim($ff2);
+
+        	    if (!is_numeric($f2) && substr($f2,0,1)==$_POST[alffio])
+        	    {
+
+        	       if (!isset($fioa[$f2]))
+        	       {
+                      $fioa[$f2]=0;
+        	        }
+
+
+        	    }
+        	 }
+        }
+        ksort($fioa);
+   }
+       if (!empty($_POST[alfname]))
+        {
+            $request_string.="&alfname=".$_POST[alfname];
+            $request_string.="&alfname=".$_POST[alfname];
+            $search_string .=" AND (substring(name,1,1)='".$_POST[alfname]."')";
+       }
+       if(!empty($_POST[pname]))
+       {
+       	    $request_string.="&pname=".$_POST[pname];
+            $request_string.="&pname=".$_POST[pname];
+            $search_string .=" AND (name  LIKE '%".$_POST[pname]."%')";
+       }
+        if(!empty($_POST[ppname]))
+       {
+       	    $request_string.="&ppname=".$_POST[ppname];
+            $request_string.="&ppname=".$_POST[ppname];
+            $search_string .=" AND (name  LIKE '".$_POST[ppname]."%')";
+       }
+
+//Собрать поисковую строку по авторам
+if (!isset($_POST['last']))
+{
+
+
+   if ($_POST[fio]!="") {
+       $request_string.="&fio=".$_POST[fio];
+       $request_string.="&search_fio=".$_POST[fio];
+       $fio0 =  explode(' ',$_POST[fio]);
+       $fio00 =trim($fio0[0]);
+       if (isset($_GET[avt]))
+           $fio00=str_replace("_"," ",trim($_GET['avt']));
+
+//   Искать по имеми и отчеству !!!
+
+	    $search_fio .= " LCASE(avtor) like '%".trim($_POST[fio])."%'";
+
+	    $str =    "select id,surname from persons where  LCASE(surname) like '%".trim($fio0[0])."%' ";
+	    if ($fio0[1]!="")
+	       $str.=" and name like '".trim($fio0[1][0])."%'";
+	    if ($fio0[2]!="")
+	       $str.=" and fname like '".trim($fio0[2][0])."%'";
+
+
+	    $search = mysql_query($str);
+
+
+	     while($s_fio = mysql_fetch_array($search))
+             {
+	           $search_fio .= " or avtor like '%<br>". $s_fio[0]."<br>%' or avtor like '".$s_fio[0]."<br>%' ";
+             }
+
+     } // В POST указаны авторы
+
+     if ($search_fio != "") $search_fio = " (".$search_fio.") ";
+
+
+// Сформировать строку поиска search_string
+//Название
+
+	if ($_POST[name]=="") $search_string.=" AND name != \"\" ";
+        else {
+	     $request_string.="&name=".$_POST[name];
+
+         $search_string_pname="MATCH (`name`,`annots`,`keyword`) AGAINST ('".$_POST['name']."' ) > 0";
+         $search_string_mname="(MATCH (c.`cv_name`,c.`cv_text`) AGAINST ('".$_POST['name']."' ) > 0)";
+         $search_string_pname0="MATCH (`name`,`annots`,`keyword`) AGAINST ('".$_POST['name']."') AS relevant, ";
+         $search_string_mname0="MATCH (c.`cv_name`,c.`cv_text`) AGAINST ('".$_POST['name']."' ) AS relevant, ";
+        }
+//Вид публикации
+       if (isset($_POST[vid])) {
+          $request_string.="&vid=".$_POST[vid];
+          if ($_POST[vid]!="*") {
+             $search_string .= " and (vid=".$_POST[vid].") ";
+          }
+       }
+//ISBN
+
+
+       if ($_POST[isbn]!="") {
+           $request_string.="&isbn=".$_POST[isbn];
+           $search_string .= " and (izdat like '%".$_POST[isbn]."%') ";
+        }
+// Рубрики
+
+       if (isset($_POST[rubricator])){
+           $request_string.="&rub=".$_POST[rubricator];
+           if ($_POST[rubricator]!="*"){
+               $rr=explode(" ",$_POST[rubricator]);
+               if (!isset($_REQUEST[retro]))
+	               $search_string .= " and (rubric2 = ".$_POST[rubricator]." OR rubric2d=".$_POST[rubricator].
+	               " OR rubric2_3=".$_POST[rubricator].
+	               " OR rubric2_4=".$_POST[rubricator].
+	               " OR rubric2_5=".$_POST[rubricator].
+	               " ) ";
+               else
+	               $search_string .= " AND ".
+	               "(rubric2='r".$_POST[rubricator]."'".
+	               " OR rubric2d='r".$_POST[rubricator]."'".
+	               " OR rubric2_3='r".$_POST[rubricator]."'".
+	               " OR rubric2_4='r".$_POST[rubricator]."'".
+	               " OR rubric2_5='r".$_POST[rubricator]."'".
+	               " ) ";
+
+           }
+       }
+       if (($_POST[rubricator]=="*" || !isset($_POST[rubricator])) && !isset($_REQUEST[retro]))
+              $search_string .= " AND
+                 (NOT
+	               (rubric2 LIKE 'r%' OR  rubric2d  LIKE 'r%' OR
+	                rubric2_3 LIKE 'r%' OR rubric2_4 LIKE 'r%' OR rubric2_5  LIKE 'r%'))";
+        if (($_POST[rubricator]=="*" || !isset($_POST[rubricator])) && isset($_REQUEST[retro]))
+              $search_string .= " and
+	               (rubric2 LIKE 'r%' OR  rubric2d LIKE 'r%' OR
+	                rubric2_3  LIKE 'r%' OR rubric2_4  LIKE 'r%' OR rubric2_5 LIKE 'r%')";
+ /*      if (($_POST[rubricator]!="*" || !isset($_POST[rubricator])) && isset($_REQUEST[retro]))
+              $search_string .= " and
+	               (rubric2 LIKE 'r%' OR  rubric2d LIKE 'r%' OR
+	                rubric2_3  LIKE 'r%' OR rubric2_4  LIKE 'r%' OR rubric2_5  LIKE 'r%')";
+*/
+// Ключевые слова
+     if ($_POST[keyword1]!="") {
+        $request_string.="&keyword1=".$_POST[keyword1];
+        $search_string .= " and (keyword like '%".str_replace("_"," ",$_POST[keyword1])."%' OR
+                            name like '%".str_replace("_"," ",$_POST[keyword1])."%' OR
+        					annots like '%".str_replace("_"," ",$_POST[keyword1])."%')";
+     }
+     if ($_POST[keyword2]!="") {
+        $request_string.="&keyword1=".$_POST[keyword2];
+        $search_string .= " and (keyword like '%".str_replace("_"," ",$_POST[keyword2])."%' OR
+                                 name like '%".str_replace("_"," ",$_POST[keyword2])."%' OR
+                                 annots like '%".str_replace("_"," ",$_POST[keyword2])."%') ";
+     }
+     if ($_POST[keyword3]!="") {
+        $request_string.="&keyword1=".$_POST[keyword3];
+        $search_string .= " and (keyword like '%".str_replace("_"," ",$_POST[keyword3])."%' OR
+                                 name like '%".str_replace("_"," ",$_POST[keyword3])."%' OR
+                                 annots like '%".str_replace("_"," ",$_POST[keyword3])."%') ";
+     }
+// Год выпуска
+     if (isset($_POST[tyear]))  //Новинки взять за последние два года
+     {
+         $request_string.="&tyear=".$_POST[tyear];
+         $search_string .= " AND (year = '".date('Y')."' or ".
+         " year = '".(date('Y')-1)."')  AND type='publ' ";
+     }
+     else
+     {
+
+         if ($_POST[other_year]!="") {
+             $request_string.="&other_year=".$_POST[other_year];
+             $search_string .= " and (year = '".$_POST[other_year]."') ";
+         }
+         else
+         {
+
+           if (isset($_POST[year][0])) {
+              if ($_POST[year][0]!="*" ){
+                  $gg=$_POST[year][0];
+	          $request_string.="&year=".$gg;
+                  $search_string .= " and (year = '".$_POST[year][0]."') ";
+
+              }
+           }
+        }
+     }
+
+//Тип публикации
+
+     if (isset($_POST[type0][0])=='on' || isset($_POST[type1][0])=='on' || isset($_POST[type2][0])=='on') {
+
+         $search_string .= " and (";
+
+         if (isset($_POST[type0][0])=='on') {
+	     $request_string.="&type0=on";
+             $search_string .= "tip =1 or ";
+         }
+         if (isset($_POST[type1][0])=='on') {
+             $request_string.="&type1=on";
+             $search_string .= " tip =2 or ";
+         }
+         if (isset($_POST[type2][0])=='on') {
+            $request_string.="&type2=on";
+	    $search_string .= "tip =3 or ";
+         }
+         $search_string=substr($search_string,0,-3).") ";
+
+
+     }
+
+     //Есть полный текст
+     if (isset($_POST[fullt][0])=='on')
+     {
+        $search_string .= " and (";
+        $request_string.="&fullt=on";
+        $search_string .= " link like '%href%' OR type='mag') ";
+
+     }
+// Найти похожие публикации в $_POST[TPUBL_ID] ID исходной публикации
+
+
+    if ($_POST['tpubl_id']!="")
+    {
+       $order=" OR   fsdDER BY  'year' desc";
+       $ordertxt="Сортировка по году издания";
+       $search_string="";
+       $request_string.="&tpubl_id=".$_POST[tpubl_id];
+       echo "<br /><b>Похожие публикации:</b><br />";
+       $tpubl=$DB->select("SELECT keyword FROM publ WHERE id=".$_POST['tpubl_id']. " AND status=1");
+       $kw0=explode("<br>",trim($tpubl[0][keyword]));
+       $ordertxt="Сортировка по степни релевантности";
+       $ii=0;
+       $str="";
+       $str2="";
+
+
+//поиск по ключевым словам
+        foreach($kw0 as $w => $kw) {
+
+            if (!empty($str)) $str.=" UNION ";
+        	$str.=  "SELECT 'publ' AS type,id,'".trim($kw)."1' as kw FROM publ WHERE  keyword like '%".trim($kw)."%'".
+		           " UNION ".
+		           " SELECT 'publ' AS type,id, '".trim($kw)."2' as kw FROM publ
+		             WHERE MATCH(name,annots,keyword) AGAINST('".trim($kw)."') AND status=1";
+        }
+
+        $s_string="SELECT id,count(kw) as countid FROM (".$str.") as unions GROUP BY id  HAVING id <> " . $_POST[tpubl_id].
+                  " ORDER BY count(kw) desc ";
+
+        $result=$DB->select($s_string);
+
+        $search_string="";
+        $vsego_publ=count($result);
+
+        foreach($result as $j=> $res0) {
+           $search_string.=" id =".$res0[id]. " or ";
+        }
+        $search_string=substr($search_string,0,-3);
+
+     }
+     if (empty($search_string)){
+        $search_string=" id =".$_POST[tpubl_id];
+        $vsego_publ=1;
+     }
+} // Закрыт if поиска последних
+
+}
+
+// Закрыт if - не пустой POST
+
+// Кличество записей, если не "похожие"
+
+if (!isset($_POST['tpubl_id']) && !isset($_POST['last']))
+{
+
+if ($search_string!="" && $search_fio!="") $and=" and ";
+else $and="";
+
+if (empty($search_string)) $search_string="1";
+
+if (isset($_REQUEST[retro]) && empty($_REQUEST[rubricator]) && empty($_POST[rubricator]))
+{
+    $search_string .= " AND ".
+	               "(substring(rubric2,1,1)='r".$_POST[rubricator]."'".
+	               " OR substring(rubric2d,1,1)='r".$_POST[rubricator]."'".
+	               " OR substring(rubric2_3,1,1)='r".$_POST[rubricator]."'".
+	               " OR substring(rubric2_4,1,1)='r".$_POST[rubricator]."'".
+	               " OR substring(rubric2_5,1,1)='r".$_POST[rubricator]."'".
+	               " ) ";
+
+}
+
+
+// Найти ВСЕГО
+if  (empty($search_string_pname)) $search_string_pname=1;
+if  (empty($search_string_mname)) $search_string_mname=1;
+$result=$DB->select(
+
+ "SELECT  count(publ.id) as countid  FROM
+(
+
+  (SELECT 'publ' AS 'type', id AS id,name AS title,name AS name,name2,link,tip,annots,".$search_string_pname0.
+   " avtor,year,
+   izdat,rubric2,rubric2d,rubric2_3,rubric2_4,rubric2_5,keyword,vid
+   FROM `publ`   WHERE ".$search_string_pname." AND status=1 ".
+   " )) AS publ WHERE ".$search_string.$and.$search_fio. " AND publ.name<>''  "
+   );
+
+
+//
+       $vsego_publ=$result[0][countid] ;
+}
+
+
+
+//echo "<table cellspacing=0 cellpadding=0 border=1 valign=top class='content' style='width:90%'>";
+
+//echo "<tr><td valign=top>";
+////////////
+
+if (isset($_POST[last]))
+{
+
+
+     $request_string="&last";
+}
+// Формируется страница
+///echo "<table cellspacing=0 cellpadding=0 border=0 valign=top class='content'>";
+//if ($search_string!="1" || $search_fio != "")
+//echo "<br /><br /><font size='2' color='#0690b7'><strong> ПО ВАШЕМУ ЗАПРОСУ НАЙДЕНО:</strong></font>";
+
+
+
+
+// Запрос к базе
+
+
+$numpubl=$vsego_publ;
+// Печатаем
+
+if ($search_string=="1" && $search_fio='')
+    $vsego="Всего: ".$numpubl." публикаций&nbsp;&nbsp;<br />";
+else
+    $vsego="<br /><br />По Вашему запросу найдено <strong>".$vsego_publ."</strong> публикаций<br />";
+
+echo "<br /><br />";
+;
+if (!isset($_REQUEST[retro]))
+   echo "<b>Показаны только актуальные публикации</b> | ".
+   "<a href=/index.php?".$_SERVER[QUERY_STRING]."&retro title='Показать ретроспективные публикации'>
+   Показать ретроспективные публикации</a>";
+else
+   echo "<b>Показаны ретроспективные публикаций</b> | ".
+   "<a href=/index.php?".str_replace('&retro','',$_SERVER[QUERY_STRING])." title='Показать актуальные публикации'>
+   Показать актуальные публикации</a>";
+echo "<br />";
+// Всего страниц
+
+   $numpages= ceil($numpubl/$nn_page);
+
+   if(!$_REQUEST['page']) $page = 1;
+      else $page = $_REQUEST['page'];
+//    $count = 0;
+
+
+if(isset($_REQUEST[retro]))$retro="&retro"; else $retro='';
+ $request_string.=$retro;
+if (($_REQUEST['page']) && ($_REQUEST['page']>1))
+   $request_string=str_replace(" ","_",$request_string);
+   $previos = "<a href=index.php?page_id=" .
+   $_REQUEST[page_id]."&page=".($_REQUEST['page']-1).str_replace(" ","_",$request_string)."><b>предыдущая&nbsp&nbsp&larr;&nbsp&nbsp; </b></a>";
+
+//Сформировать список с номерами страниц
+
+
+	if ($_REQUEST['page']<=$numpages)
+
+	if ($_REQUEST[page]=="") $tpage=1;
+	else $tpage = $_REQUEST[page];
+	$next = "<a href=index.php?page_id=".$_REQUEST[page_id]."&page=".($tpage+1).str_replace(" ","_",$request_string)."><b>&nbsp&rarr;&nbsp&nbsp   cледующая</b></a>";
+
+	if($_REQUEST[page] > 1) $spe .= $previos;
+	if($page>3) $spe .= '<a href=index.php?page_id='.$_REQUEST[page_id].str_replace(" ","_",$request_string).'&page=1>1</a>&nbsp;&nbsp ';
+	if($page>4) $spe .= '... ';
+	if($page>2) $spe .= '<a href=index.php?page_id='.$_REQUEST[page_id].str_replace(" ","_",$request_string).'&page='.($page-2).'>'.($page-2).'</a>&nbsp;&nbsp; ';
+	if($page>1) $spe .= '<a href=index.php?page_id='.$_REQUEST[page_id].str_replace(" ","_",$request_string).'&page='.($page-1).'>'.($page-1).'</a>&nbsp;&nbsp; ';
+	$spe .= '<b>'.$page.'</b>&nbsp;&nbsp; ';
+	if($page<$numpages) $spe .= '<a href=index.php?page_id='.$_REQUEST[page_id].str_replace(" ","_",$request_string).'&page='.($page+1).'>'.($page+1).'</a> &nbsp;&nbsp;';
+	if($page<$numpages-1) $spe .= '<a href=index.php?page_id='.$_REQUEST[page_id].str_replace(" ","_",$request_string).'&page='.($page+2).'>'.($page+2).'</a>&nbsp;&nbsp; ';
+	if($page<$numpages-3) $spe .= " ...  ";
+	if($page<$numpages-2) $spe .= " <a href=index.php?page_id=".$_REQUEST[page_id].str_replace(" ","_",$request_string)."&page=$numpages>".$numpages."</a>";
+	if ($_REQUEST[page]< $numpages && $numpages > 1) $spe .= "&nbsp;&nbsp;".$next;
+
+// Вывести заголосок с количеством публикаций
+       echo $vsego."<br />";
+//       echo "<br />A  Б  В  Г  Д  Е  Ж  З  И  К  Л  М  Н  О  П  Р  С  Т  Н  Ф  Х  Ц  Ч  Ш  Щ  Э  Ю  Я<br /><br />";
+	//if($_GET['key'])$temp.='<font size=3>'.str_replace('_', ' ', $_GET['key']).'</font>';
+      if ($numpages > 1)
+        echo "<center>".$spe."</center>";
+// Посчитать начальную и конечную публикацию в списке
+       $i0=($page-1)*$nn_page;
+       $in=$page*$nn_page;
+
+
+
+if ($search_string!="" && $search_fio!="") $and=" and ";
+else $and="";
+
+if (empty($search_string)) $search_string="1";
+
+
+if (empty($_POST[tpubl_id]) && !isset($_POST[last])) // НЕ похожие и последние
+{
+    if (!empty($_REQUEST['name']))
+    {
+        $order="relevant DESC";
+        $ordertxt="Сортировка по релевантности";
+    }
+    else
+    {
+        $order="lang, title, name2";
+        $ordertxt="Сортировка по названию";
+     }
+
+	if  (empty($search_string_pname0)) $search_string_pname0="' ' AS relevant,";
+	if  (empty($search_string_mname0)) $search_string_mname0="' ' AS relevant,";
+ /*   if (!empty($_REQUEST[rub2]) && !isset($_REQUEST[retro]))
+       $srub=" AND (rubric2=".$_REQUEST[rub2]." OR rubric2d=".$_REQUEST[rub2].
+       " OR rubric2_3=".$_REQUEST[rub2].
+       " OR rubric2_4=".$_REQUEST[rub2].
+       " OR rubric2_5=".$_REQUEST[rub2].
+       ")";
+     if (!empty($_REQUEST[rub2]) && isset($_REQUEST[retro]))
+       $srub=" AND (rubric2=".$_REQUEST[rub2]." OR rubric2='r".$_REQUEST[rub2]."'".
+       " OR rubric2d=".$_REQUEST[rub2]." OR rubric2d='r".$_REQUEST[rub2]."'".
+       " OR rubric2_3=".$_REQUEST[rub2]." OR rubric2_3='r".$_REQUEST[rub2]."'".
+       " OR rubric2_4=".$_REQUEST[rub2]." OR rubric2_4='r".$_REQUEST[rub2]."'".
+       " OR rubric2_5=".$_REQUEST[rub2]." OR rubric2_5='r".$_REQUEST[rub2]."'".
+       ")";
+*/
+//echo $search_string;
+	$rlist=$DB->select("
+ 			SELECT   publ.type,publ.id,publ.title,publ.name,publ.name2,publ.link,publ.avtor,
+          			 publ.tip,publ.annots,publ.relevant,picsmall,
+          			 IF(substr(rubric2,1,1)='r' OR substr(rubric2d,1,1)='r' OR
+          			    substr(rubric2_3,1,1)='r' OR  substr(rubric2_4,1,1)='r' OR  substr(rubric2_5,1,1)='r','r','') AS retro,
+			         INTERVAL(191,ASCII(title)) as lang FROM
+		  (
+
+		  (SELECT 'publ' AS 'type', id AS id,name AS title,name AS name,name2,link,tip,annots,".$search_string_pname0.
+			      " avtor,year,
+		   		 izdat,rubric2,rubric2d,rubric2_3,rubric2_4,rubric2_5,keyword,vid,picsmall
+		   FROM `publ`   WHERE ".$search_string_pname. " AND status=1 ".
+   		   " )) AS publ
+   		   WHERE ".$search_string.$and.$search_fio." AND publ.name<>''"." ORDER BY ".$order.
+           "  LIMIT  ".$i0.",  ".$nn_page
+          );
+
+}
+else
+{
+      // Найти похожие
+if (!isset($_POST[last]))
+{
+   if ($vsego_publ > 1 )
+       $rlist=$DB->select(
+              "SELECT unionids.type,idmain AS id,name,name2,link,avtor,picsmall FROM
+              (SELECT publ.id AS idmain,publ.name,publ.name2,publ.link,publ.avtor,'publ' AS type,vid,picsmall
+              FROM publ
+
+              ) AS unionids
+              INNER JOIN  (SELECT unions.id,count(unions.id) as cid, type
+	          FROM (".$str.") as unions GROUP BY unions.type,unions.id  HAVING unions.id <> " .
+                      $_POST[tpubl_id]. ") as idrelevante ON unionids.idmain = idrelevante.id AND idrelevante.type=unionids.type
+                      ORDER BY idrelevante.cid desc".
+                     " LIMIT ".$i0.", ".$nn_page
+		);
+   else
+       $rlist=$DB->select(
+              "SELECT publ.id,publ.name,publ.name2,publ.avtor,publ.link,picsmall FROM publ WHERE ".$search_string." AND status=1"
+
+       );
+
+}
+}
+
+if (isset($_POST[last])) // Последние поступления
+{
+     $rlist=$DB->select("SELECT id,name,name2,link,
+     					CONCAT('<br />Дата размещения в каталоге: ',date) AS date,
+     					avtor,picsmall
+					     FROM publ
+					     WHERE name <> '' AND ".$search_string. " AND status=1 ".
+					     " ORDER BY substring(date,7,2) DESC, substring(date,4,2) DESC, substring(date,1,2) DESC".
+					      " LIMIT ".$nn_page
+					     );
+     $ordertxt='Сортировка в порядке убывания даты размещения  каталоге';
+
+}  //Последнеи поступления
+
+
+  echo "<br /><strong>".$ordertxt."</strong>";
+
+       foreach($rlist as $ii=>$i)
+       {
+        if(empty($i[picsmall])) $i[picsmall]='epubl90.jpg';
+//Получить авторов
+            $avtor_string="";
+
+       $pfoto="
+      			<img  src=/dreamedit/pfoto/".$i[picsmall]."  border=3 style='border-color:#cecce8;' hspace=20 vspace=20 /><br />
+               ";
+       echo "<table border='0' style='width:90%;'><tr><td valign='top'>".
+//       "<img src=dreamedit/pfoto/".
+       $pfoto.
+//       " hspace=20 vspace=20>".
+       "</td><td width='100%'>";
+
+            if ($i[savtor]!="on"){
+	        $ffio=explode("<br>",trim($i['avtor']));
+
+	        foreach($ffio as $k=>$f)
+		{
+		if (trim($f)!="") {
+
+		   if (is_numeric($f)) {
+		      if (!isset($_REQUEST[en]))
+		      {
+                       $ffname=$DB->select(
+		       "SELECT id,CONCAT(surname,' ',substring(name,1,1),'.',substring(fname,1,1),'.') AS fio FROM persons WHERE id=".$f
+		       );
+
+		       }
+		       else
+		       {
+
+		        	$ffname=$DB->select("SELECT id,Autor_en AS fio FROM persons WHERE id=".$f);
+               }
+		       $avtor_string.="<em><a title='Сведения об авторе' href=/index.php?page_id=".
+		       $_TPL_REPLACMENT["FULL_ID_A"]."&id=".$ffname[0][id].">".
+		       $ffname[0][fio]."</a></em>, ";
+		    }
+	            else
+		       $avtor_string.="<em>".trim($f)."</em>, ";
+		}}
+
+	    $avtor_string=substr($avtor_string,0,-2);
+	    }
+
+// Разбить по годам. если это список для подразделения
+           if (!empty($_POST[tid]))
+	   {
+
+	       if ($iyear!=$i[year])
+	          {
+	             echo "<br /><br /><br /><font size='3'><strong>".$i[year]."</strong></font>";
+
+
+		     $iyear=$i[year];
+		  }
+	   }
+//	    if (empty($i[title]))
+//	     $bookname=$i[name];
+//	    else
+//	     $bookname=$i[title];
+
+        if (!isset($_REQUEST[en])|| empty($i[name2]))
+	     $bookname=$i[name];
+	    else
+	    {
+			     $bookname=$i[name2];
+        }
+//print_r($_TPL_REPLACMENT);
+      $linkpubl="<a class='bookname' title='Информация о публикации' href=/index.php?page_id=".
+	         $_TPL_REPLACMENT["PUBL_PAGE"]."&id=".$i[id].">";
+
+	     if (!empty($avtor_string)) echo "<br />";
+         if (stripos($avtor_string,"Коллектив авторов") === false) echo "<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$avtor_string;
+          echo "<br />".$linkpubl.
+
+	     $bookname.
+//	     $i[name2].
+	     "</a>";
+	     echo $i[date];
+	     if ($i[relevant]!=0) echo "[".round($i[relevant],2)."]";
+
+
+
+ //              if (strpos($i['link'],'pdf')>0)
+ //                  echo "<img border='0' align='left' hspace='6' src=/files/Image/pdf.gif >";
+
+            if ($i[retro]=="r") echo "<img align='right' src=/files/Image/retrospectivasmall.jpg />"; echo $i['link'];
+           echo "</td></tr></table>";
+
+ //           echo "<br />";
+	}
+
+//echo rvpubl_search($search_string,$search_fio,$count_name,$_TPL_REPLACMENT['FULL_ID_P'],$_TPL_REPLACMENT['FULL_ID_A']);
+
+
+//Конец списка названий
+        echo "<br /><br />";
+        if ($numpages > 1) echo "<center>".$spe."</center>";
+
+
+echo " <br />";
+
+
+
+mysql_close();
+
+
+
+$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."bottom.text.html");
+//___________________________________
+function get_surname_search($search_string,$search_fio,$search_fio_full,$count_avt,$pers_publ)
+
+{
+ global $DB;
+ $temp = '';
+ $num = 0;
+
+
+
+ $search_string=str_replace("AND type='publ'","",$search_string);
+ $search_string=str_replace("OR LCASE(title) like '%".trim($_POST[name])."%' or LCASE(title) like '%".trim($_POST[name])."%'","",$search_string);
+ $rqv = "select avtor,'publ' AS type from publ where ".$search_string;
+ if ($search_fio_full != "") $rqv .= " and ".$search_fio_full;
+
+
+$i=0;
+
+$rst=mysql_query($rqv);
+$num=0;
+ if(!empty($rst))
+ while($rlist = mysql_fetch_array($rst))
+ {
+
+
+// Если выбираем соавторов
+
+
+	$testa = array();
+	$testa = explode('<br>', trim($rlist[0]));
+
+	for($ii=0;$ii<count($testa);$ii++){
+        if ($testa[$ii] != "") {
+	    if (is_numeric($testa[$ii])) {
+		$rstfio=mysql_query("select surname,name,fname from persons where id=".$testa[$ii]);
+	        $ff = mysql_fetch_array($rstfio);
+
+                if ($ff[0]!="")
+                $avt_final[$num]=$ff[0]." ".$ff[1][0].".".$ff[2][0].".";
+	    } else {
+	        $avt_final[$num]=$testa[$ii];
+
+            }
+	$num++;
+	}}
+}
+//
+
+
+if($_GET['avt'])
+	$avt = str_replace('_', ' ', $_GET['avt']);
+
+if (count($avt_final) >0) {
+
+// Выкинуть повторы
+ sort($avt_final);
+
+
+  $avt_final0 = array();
+  $jj=0;
+
+  $avt_final0[0]=trim($avt_final[0]);
+  for ($iii=1;$iii<count($avt_final)-1;$iii++)
+  {
+    if (trim($avt_final[$iii]) != $avt_final0[$jj]) {
+       $jj++;
+       $avt_final0[$jj]=trim($avt_final[$iii]);
+    }
+}
+ usort($avt_final0,"cmp");
+
+}
+// Авторы уникальные и отсортированные
+
+
+ $oldfirst = '';
+ $yakor='1';
+echo '<br>';
+
+
+//печатаем результат поиска
+
+
+if ($search_fio !="" ) {
+if (isset($_GET[avt])){
+
+} else {
+
+if (is_numeric($search_fio))
+{
+  $ru=$DB->select("SELECT CONCAT(surname,' ',substring(name,1,1),'.',	substring(fname,1,1),'.') AS fioname
+            FROM persons WHERE id=".$search_fio);
+  $fioname=$ru[0][fioname];
+}
+else
+  $fioname=$search_fio;
+echo "<br />Вы искали: <br /><strong>".$fioname."</strong><br />";
+if (count($avt_final0)==-1)
+{
+echo "<br /><strong>Найдены:</strong><br />";
+
+//echo "<font color=#0690b7>";
+
+  for ($i=0;$i<count($avt_final0);$i++) {
+
+      if (stripos($avt_final0[$i],$search_fio)=== false)
+      continue;
+      else
+      {
+
+    if (strpos($avt_final0[$i],"Коллектив авторов")===false)
+       {
+
+           $fff=explode(" ",$avt_final0[$i]);
+
+            $fion=$DB->select("SELECT id,CONCAT(surname,' ',name,' ',fname) AS fio FROM persons
+                  WHERE surname='".$fff[0]. "' AND substring(name,1,1) = '".$fff[1][0]."' AND substring(fname,1,1)='".$fff[1][2]."'");
+            $id00=$fion[0][id];
+
+            if (count($fion) == 0)
+            {
+
+               echo "<a  title='Все публикации автора'  href='/index.php?page_id=".$_REQUEST[page_id]."&order= ORDER BY year desc".
+               "&search_fio=".$avt_final0[$i]."'>".$avt_final0[$i]."</a><br>";
+            }
+            else
+            {
+
+               echo	" <a  title='Все публикации автора'  href='/index.php?page_id=".$pers_publ.
+                    "&fid=".$avt_final0[$i]."'>".$avt_final0[$i]."</a><br />";
+             }
+        }
+
+      }
+  }
+  }
+// echo "</font>";
+ }
+ if (empty($_GET['avt']) && $search_fio=="") echo "<br><br><b>Соавторы:</b><br>";
+}
+
+// Пакуем в div
+
+
+if (empty($_GET['avt']) && $search_fio=="") {
+
+echo "<div id='info1' style='display: block'>";
+$divnam="ag";
+
+$vyvod="none";
+
+$count_avt = count($avt_final0);
+
+
+
+if ($count_avt < 30) $vyvod='block';
+ for($i=0; $i<count($avt_final0);$i++){
+  if ($avt_final0[$i][0] != ' ' && $avt_final0[$i][0] != '|')
+
+
+
+  {
+
+        if($avt_final0[$i][0] != $oldfirst)
+        {
+
+
+
+          if ($oldfirst >= "Ж" && $divnam=="ag" ) {
+              echo "</div><div id='info2' style= 'display: ".$vyvod.";'>";
+              $divnam="zm";
+           }
+           if ($oldfirst >= "М"  && $divnam=="zm") {
+              $divnam="nf";
+              echo "</div><div id='info3' style= 'display: ".$vyvod.";'>";
+           }
+
+           if ($oldfirst >= "Ф"  && $divnam=="nf") {
+              $divnam="hy";
+              echo "</div><div id='info4' style= 'display: ".$vyvod.";'>";
+            }
+
+            if (($oldfirst > "Я" || $oldfirst < "А") && $divnam=="hy") {
+              $divnam="zz";
+              echo "</div><div id='info5' style= 'display: ".$vyvod."'>";
+            }
+          $oldfirst=$avt_final0[$i][0];
+
+// Печатаем буковку
+        echo "<br><b><a href=".$_SERVER['REQUEST_URI']." name='".$yakor."'>".$oldfirst."</a></b><br><br>";
+
+	}
+
+	// Выводим автора
+           $avt_final0[$i]=trim($avt_final0[$i]);
+	   $spe = explode('|', $avt_final0[$i]);
+	   //echo " **** <br />";
+	   //print_r($spe);
+
+      $avt00=explode(" ",$spe[0]);
+      $avt01=str_replace(' ', '_', $spe[0]);
+
+      if ($avt_final0[$i] != "Коллектив авторов")
+{
+/////////
+      $fff=explode(" ",$avt_final0[$i]);
+
+
+      $fion=$DB->select("SELECT id,CONCAT(surname,' ',name,' ',fname) AS fio FROM persons
+                  WHERE surname='".$fff[0]. "' AND substring(name,1,1) = '".$fff[1][0]."' AND substring(fname,1,1)='".$fff[1][2]."'");
+      $id00=$fion[0][id];
+
+      if (count($fion) == 0)
+          echo "<a  title='Все публикации автора'  href='/index.php?page_id=".$_REQUEST[page_id]."&order= ORDER BY year desc".
+         "&search_fio=".$spe[0]."'>".$spe[0]."</a><br>";
+      else
+      echo	" <a  title='Все публикации автора'  href='/index.php?page_id=".$pers_publ.
+              "&fid=".$avt_final0[$i]."'>".$avt_final0[$i]."</a><br />";
+
+}
+	      }
+	      }
+          echo "</div>";
+          if ($divnum!="zz")
+             echo   "<div id='info5' style= 'display: ".$vyvod."'></div>";
+
+
+      }
+      $_POST[count_avt]= $count_avt;
+
+}
+echo "</div>";
+//______________________________
+
+function cmp($a, $b)
+{
+
+    $ax = ord($a);
+    $bx = ord($b);
+
+    if($ax < 123) $ax = $ax + 300;
+    if($bx < 123) $bx = $bx + 300;
+
+    if ($ax == $bx)
+    {
+
+	if($a[1] == $b[1])
+	{
+		if($a[2] == $b[2])
+		{
+			if($a[3] == $b[3])
+			{
+				if($a[4] == $b[4])
+				{
+			        	return 0;
+				}
+			        return ($a[4] < $b[4]) ? -1 : 1;
+			}
+		        return ($a[3] < $b[3]) ? -1 : 1;
+		}
+	        return ($a[2] < $b[2]) ? -1 : 1;
+	}
+       return ($a[1] < $b[1]) ? -1 : 1;
+    }
+    return ($ax < $bx) ? -1 : 1;
+}
+?>

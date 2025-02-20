@@ -1,0 +1,259 @@
+<?php
+global $DB,$_CONFIG, $site_templater;
+?>
+<html> 
+	<head>
+		<link rel="stylesheet" type="text/css" href="js/dhtmlx/dhtmlxLayout/codebase/dhtmlxlayout.css" />
+		<link rel="stylesheet" type="text/css" href="js/dhtmlx/dhtmlxLayout/codebase/skins/dhtmlxlayout_dhx_skyblue.css" />
+		<script src="js/dhtmlx/dhtmlxGrid/codebase/dhtmlxcommon.js" type="text/javascript"></script>
+		<script src="js/dhtmlx//dhtmlxLayout/codebase/dhtmlxlayout.js" type="text/javascript"></script>
+		
+		<script src="js/dhtmlx/dhtmlxLayout/codebase/dhtmlxcontainer.js" type="text/javascript"></script>
+		
+		<script src="js/dhtmlx/dhtmlxGrid/codebase/dhtmlxgrid.js" type="text/javascript"></script>
+		<script  src="js/dhtmlx/dhtmlxGrid/codebase/dhtmlxgridcell.js" type="text/javascript"></script>	 
+		<script  src="js/dhtmlx/dhtmlxGrid/codebase/excells/dhtmlxgrid_excell_link.js" type="text/javascript"></script>	
+		<script  src="js/dhtmlx/dhtmlxGrid/codebase/ext/dhtmlxgrid_filter.js" type="text/javascript" charset="utf-8"></script> 
+		<script  src="js/dhtmlx/dhtmlxCombo/codebase/dhtmlxcombo.js" type="text/javascript"></script>	 
+		<link rel="stylesheet" type="text/css" href="js/dhtmlx/dhtmlxGrid/codebase/dhtmlxgrid.css" />
+		<link rel="stylesheet" type="text/css" href="js/dhtmlx/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css" />
+
+		<script src="js/dhtmlx/dhtmlxDataProcessor/codebase/dhtmlxdataprocessor.js" type="text/javascript"></script>
+		
+		<script src="js/dhtmlx/dhtmlxToolbar/codebase/dhtmlxtoolbar.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="js/dhtmlx/dhtmlxToolbar/codebase/skins/dhtmlxtoolbar_dhx_skyblue.css" />
+		
+		
+	</head> 
+	<body>
+	<?php
+		$total = 0; 
+		$started = 0;
+		$finished = 0;
+		
+		
+	
+		$rows=$DB->select("SELECT a.icont_text AS title,b.icont_text AS date 
+						 FROM adm_ilines_content AS a
+						 INNER JOIN adm_ilines_content AS b ON a.el_id=b.el_id AND b.icont_var='date'
+						 WHERE a.el_id=".$_REQUEST[ex]." AND a.icont_var = 'title'");
+	//	$rows=$DB->select("SELECT *,CONCAT(name,name2) AS title FROM publ");				 
+		
+	    $date=substr($rows[0][date],8,2).".".substr($rows[0][date],5,2).".".substr($rows[0][date],0,4);
+	?>
+		<script>
+				
+				
+	
+
+				function post_to_url(path, params, method) {
+					method = method || "post"; // Set method to post by default, if not specified.
+
+					// The rest of this code assumes you are not using a library.
+					// It can be made less wordy if you use one.
+					var form = document.createElement("form");
+					form.setAttribute("method", method);
+					form.setAttribute("action", path);
+
+					for(var key in params) {
+						if(params.hasOwnProperty(key)) {
+							var hiddenField = document.createElement("input");
+							hiddenField.setAttribute("type", "hidden");
+							hiddenField.setAttribute("name", key);
+							hiddenField.setAttribute("value", params[key]);
+
+							form.appendChild(hiddenField);
+						 }
+					}
+
+					document.body.appendChild(form);
+					form.submit();
+				}
+
+				
+
+				function getCoutersString()
+				{
+			//		return "Вузов всего <? echo $total; ?>, вводили <?  echo $started; ?>, закончили ввод <? echo $finished; ?>.";
+				}
+
+
+
+				
+				dhtmlx.image_path='/js/dhtmlx/dhtmlxGrid/codebase/imgs/';
+
+				var main_layout = new dhtmlXLayoutObject(document.body, '1C');
+
+			var cell_5 = main_layout.cells('a');
+ 			cell_5.setText('Выставка: <?=@$date?>. <?=@$rows[0][title]?>');
+				 
+				var grid = cell_5.attachGrid(); 
+			//	grid.setIconsPath('/js/dhtmlx/dhtmlxGrid/codebase/imgs/'); 
+				grid.setHeader("№,Отм,Название,Год,A");
+				grid.setInitWidths("40,40,800,60,30"); 
+				
+				grid.setColAlign("right,left,left,center,center");
+				grid.setColTypes("ro,ch,ro,ro,ro");    
+				grid.setColSorting("int,str,str,str");
+				grid.attachHeader("#text_filter,,#text_filter,#text_filter");
+				
+		 
+				grid.init();   
+				grid.loadXML("admin_table_source.xml?ex=<?=@$_GET[ex]?>");
+				
+								
+				var dp = new dataProcessor('update.xml');
+				dp.init(grid);
+				
+				var row_id=0;
+				for (var i=0; i<grid.getRowsNum(); i++){
+					//alert(grid.getRowId(i));
+					if(grid.getUserData(grid.getRowId(i),'inter_count') == '0') {  
+						row_id = grid.getRowId(i); 
+						grid.setRowTextStyle(row_id, "color:red;");
+						break;
+					}
+				}   
+				
+				grid.attachEvent("onFilterEnd", function(elements){
+					toolbar.forEachItem(function(itemId){
+									if(toolbar.getItemState(itemId))
+									{
+										if(itemId == "notstarted")
+											grid.filterBy(2,function(data){
+												return   data.toString() == "";  // true - show the related row , false - hide the related row
+											},true);
+										if(itemId == "started")
+											grid.filterBy(2,function(data){
+												return   data.toString() != "";  // true - show the related row , false - hide the related row
+											},true);
+										if(itemId == "notcompleted")
+											grid.filterBy(3,function(data){
+												//return  (data.toString().length > 0) && (data.toString().substr(-1,1) != '.');  // true - show the related row , false - hide the related row
+												//return  (data.toString().length > 0) && (data.toString().substr(data.toString().length,1) != "."); 
+												if(data.toString().length > 0)
+													if(data.toString().substr(data.toString().length-1,1) != ".")
+														return true;
+													else
+														return false;
+												else
+													return false;
+												
+												
+											},true);
+										if(itemId == "no_inter")
+											grid.filterBy(4,function(data){
+												return   data.toString() == "0";  // true - show the related row , false - hide the related row
+											},true);
+										if(itemId == "finished")
+											grid.filterBy(18,function(data){
+												return   data.toString() == "1";  // true - show the related row , false - hide the related row
+											},true);
+										/*if(itemId == "unfinished")
+											grid.filterBy(18,function(data){
+												return   data.toString() == "0";  // true - show the related row , false - hide the related row
+											},true);*/
+									}
+							});	
+				});
+				
+				  
+				
+		//		var toolbar = cell_5.attachToolbar();
+		//		toolbar.setIconsPath('/js/dhtmlx/dhtmlxToolbar/codebase/imgs/');
+		//		toolbar.loadXML('./data/toolbar.xml', function(){});
+/*
+	toolbar.attachEvent("onStateChange", function(id, state){
+					
+					toolbar.forEachItem(function(itemId){
+									toolbar.setItemState(itemId, false);
+							});
+					
+					toolbar.setItemState(id, true);
+					
+					if(id == "notstarted")
+							{
+								
+								grid.filterByAll();
+								
+								grid.filterBy(2,function(data){
+									return   data.toString() == "";  // true - show the related row , false - hide the related row
+								},true);
+								
+								//grid.filterBy(3,"",true); 
+							
+								
+							
+								cell_5.setText(getCoutersString() + '   '  + 'Фильтр: Не вводили');
+							}
+					if(id == "started")
+							{
+								
+								grid.filterByAll();
+								
+								grid.filterBy(2,function(data){
+									return   data.toString() != "";  // true - show the related row , false - hide the related row
+								},true);
+								
+								//grid.filterBy(3,"",true); 
+							
+								
+							
+								cell_5.setText(getCoutersString() + '   '  + 'Фильтр: Не вводили');
+							}							
+						
+					if(id == "notcompleted")
+							{
+								grid.filterByAll();
+							
+								grid.filterBy(3,function(data){
+									//return  (data.toString().length > 0) && (data.toString().substr(-1,1) != '.');  // true - show the related row , false - hide the related row
+									//return  (data.toString().length > 0) && (data.toString().substr(data.toString().length,1) != "."); 
+									if(data.toString().length > 0)
+													if(data.toString().substr(data.toString().length-1,1) != ".")
+														return true;
+													else
+														return false;
+												else
+													return false;
+									
+								},true); 
+								
+								//grid.filterBy(3,"",true);
+								
+																
+								cell_5.setText(getCoutersString() + '   '  + 'Фильтр: В процессе ввода');
+							}		
+					if(id == "no_inter")
+							{
+								grid.filterByAll();
+								
+								grid.filterBy(4,function(data){
+									return   data.toString() == "0";  // true - show the related row , false - hide the related row
+								},true);
+								
+								
+								
+								cell_5.setText(getCoutersString() + '   '  + 'Фильтр: Иностранцев нет');
+							}
+					if(id == "finished")
+							{
+								grid.filterByAll();
+								
+								grid.filterBy(18,function(data){
+									return   data.toString() == "1";  // true - show the related row , false - hide the related row
+								},true);
+								
+								
+								
+								cell_5.setText(getCoutersString() + '   '  + 'Фильтр: Завершены');
+							}
+					
+				});
+*/
+ 
+				
+				
+		</script>
+	</body>
+</html>

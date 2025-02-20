@@ -1,0 +1,21 @@
+<?
+$pg = new Pages();
+?>
+<div class="extra-wrap"><table><tbody><tr><td valign="top"><img src="/files/Image/msg_22.png">&nbsp;&nbsp;</td><td>{PREV_TEXT}
+<?
+if($_TPL_REPLACMENT["GO"])
+{
+	if($_SESSION[lang]!='/en')
+	{
+	?>
+	<a href="<?=$pg->getPageUrl($_TPL_REPLACMENT["FULL_ID"], array("id" => $_TPL_REPLACMENT["ID"], "p" => @$_REQUEST["p"]))?>">подробнее...</a>
+	<?
+	}
+	else
+	{
+	?>
+	<a href="/en<?=$pg->getPageUrl($_TPL_REPLACMENT["FULL_ID"], array("id" => $_TPL_REPLACMENT["ID"], "p" => @$_REQUEST["p"]))?>">more...</a>
+	<?
+	}	
+}?>
+</td></tr></tbody></table></div>

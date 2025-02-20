@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Javascript Tree Grid Extension. Drag &amp; Drop</title>
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+</style>
+<body>
+	<h1>Javascript Tree Grid Extension. Drag &amp; Drop</h1>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXTree.css">
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXTreeGrid.css">	
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXTree.js"></script>	
+	<script  src="../js/dhtmlXTree_gr.js"></script>		
+	<table>
+		<tr>
+			<td>
+				<div id="treeboxbox_tree" style="width:450; height:218;background-color:#f5f5f5;border :1px solid Silver;">&nbsp;</div>
+				<hr>
+				<div id="treeboxbox_tree2" style="width:450; height:218;background-color:#f5f5f5;border :1px solid Silver;">&nbsp;</div>
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+
+		</div>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+<hr>
+<XMP>
+<div id="treeboxbox_tree" style="width:200;height:200"></div>
+<script>
+			treegrid1=new dhtmlXTreeGridObject("treeboxbox_tree","100%","100%","root");
+			treegrid1.tree.setImagePath("imgs/");
+			//enable Drag&Drop
+			treegrid1.enableDragAndDrop(1);			
+			//set my Drag&Drop handler
+			treegrid2.tree.setDragHandler(myDragHandler);			
+			treegrid1.tree.enableDragAndDRop("imgs/");			
+			
+			treegrid2=new dhtmlXTreeGridObject("treeboxbox2_tree","100%","100%","root");
+			//enable Drag&Drop
+			treegrid2.enableDragAndDrop(1);			
+			//set my Drag&Drop handler
+			treegrid2.tree.setDragHandler(myDragHandler);			
+			treegrid2.tree.setImagePath("imgs/");
+			treegrid2.loadXML("treegrid.xml");		
+			
+</script>
+</XMP>
+
+	<script>
+			treegrid1=new dhtmlXTreeGridObject("treeboxbox_tree","100%","100%","0");
+			treegrid1.tree.setImagePath("../imgs/");
+			treegrid1.loadXML("treegrid.xml");
+			
+			treegrid2=new dhtmlXTreeGridObject("treeboxbox_tree2","100%","100%","0");
+			treegrid2.tree.setImagePath("../imgs/");
+			treegrid2.loadXML("treegrid.xml");			
+	</script>
+<br><br>
+
+</body>
+</html>

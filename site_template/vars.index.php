@@ -1,0 +1,306 @@
+<?
+
+$tpl_vars = array(
+	"label"     => array(
+		"class"  => "base::header",
+		"name" => "index",
+		"value" => "Шаблон главной страницы",
+	),
+
+	"title"      => array(
+		"class" => "base::textbox",
+		"prompt" => Dreamedit::translate("Title"),
+		"size" => "51",
+		"field" => "title",
+		"buttons" => "quot",
+	),
+	"title_en"      => array(
+		"class" => "base::textbox",
+		"prompt" => Dreamedit::translate("Title (English)"),
+		"size" => "51",
+		"field" => "title_en",
+		"buttons" => "quot",
+	),
+	"description"   => array(
+		"class" => "base::textarea",
+		"prompt" => Dreamedit::translate("Description"),
+		"field" => "description",
+		"cols" => "51",
+		"rows" => "5",
+	),
+	"keywords"   => array(
+		"class" => "base::textarea",
+		"prompt" => Dreamedit::translate("Keywords"),
+		"field" => "keywords",
+		"cols" => "51",
+		"rows" => "5",
+	),
+	"slogan"     => array(
+		"class" => "base::textbox",
+		"prompt" => Dreamedit::translate("Слоган"),
+		"size" => "51",
+		"field" => "slogan",
+		"buttons" => "quot",
+	),
+	"bank"    => array(
+		"class" => "base::editor",
+		"prompt" => Dreamedit::translate("Банковские реквизиты"),
+		"field" => "bank",
+	),
+	"contact"    => array(
+		"class" => "base::editor",
+		"prompt" => Dreamedit::translate("Контактная информация"),
+		"field" => "contact",
+		"type" => "Basic",
+	),
+
+	"publ_page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница одной публикации "),
+		"size" => "10",
+		"field" => "publ_page",
+		"buttons" => "page_id",
+	),
+	"iline_spisok" => array(
+		"class" => "base::textbox",
+		"prompt" => Dreamedit::translate("Список id инфолент новостей "),
+		"size" => "10",
+		"field" => "iline_spisok",
+	),
+	"news_block_line" => array(
+		"class" => "base::selectIline",
+		"prompt" => Dreamedit::translate("Информационная лента Новости института"),
+		"field" => "news_block_line",
+	),
+	"news_block_page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница полного описания новостей"),
+		"size" => "10",
+		"field" => "news_block_page",
+		"buttons" => "page_id",
+	),
+	"full_smi_id" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница полного описания публикации сми"),
+		"size" => "10",
+		"field" => "full_smi_id",
+		"buttons" => "page_id",
+	),
+	"disser_full_id" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница объявления о защите диссертации"),
+		"size" => "10",
+		"field" => "disser_full_id",
+		"buttons" => "page_id",
+	),
+	"rec_com_full_id" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница описания актуального комментария"),
+		"size" => "10",
+		"field" => "rec_com_full_id",
+		"buttons" => "page_id",
+	),
+	"news_block_count" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Элементов в блоке новостей"),
+		"size" => "10",
+		"field" => "news_block_count",
+	),
+	"news_biblio_line" => array(
+		"class" => "base::selectIline",
+		"prompt" => Dreamedit::translate("Информационная лента Новостей библиотеки"),
+		"field" => "news_biblio_line",
+	),
+	"news_biblio_count" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Элементов в блоке новостей библиотеки"),
+		"size" => "10",
+		"field" => "news_biblio_count",
+	),
+	"news_seminar_line" => array(
+		"class" => "base::selectIline",
+		"prompt" => Dreamedit::translate("Информационная лента Новостей семинаров"),
+		"field" => "news_seminar_line",
+	),
+	"news_seminar_count" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Элементов в блоке новостей семинаров"),
+		"size" => "10",
+		"field" => "news_seminar_count",
+	),
+	"publ_spisok" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница списка публикации "),
+		"size" => "10",
+		"field" => "publ_spisok",
+		"buttons" => "page_id",
+	),
+	"persona__page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница одной персоны "),
+		"size" => "10",
+		"field" => "persona_page",
+		"buttons" => "page_id",
+	),
+	"pers_page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница списка персон "),
+		"size" => "10",
+		"field" => "pers_page",
+		"buttons" => "page_id",
+	),
+	"center_page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница списка персон <br />одного подразделения"),
+		"size" => "10",
+		"field" => "center_page",
+		"buttons" => "page_id",
+	),
+	"feedback__page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница обратной связи "),
+		"size" => "10",
+		"field" => "feedback_page",
+		"buttons" => "page_id",
+	),
+	"sitemap__page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница карты сайта "),
+		"size" => "10",
+		"field" => "sitemap_page",
+		"buttons" => "page_id",
+	),
+
+	"search_page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница поиска по тэгам "),
+		"size" => "10",
+		"field" => "search_page",
+		"buttons" => "page_id",
+	),
+	"usluga_page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница информации об услуге "),
+		"size" => "10",
+		"field" => "usluga_page",
+		"buttons" => "page_id",
+	),
+	"usluga_list" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница списка услуг "),
+		"size" => "10",
+		"field" => "usluga_list",
+		"buttons" => "page_id",
+	),
+	"poll_page" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Страница архива опросов "),
+		"size" => "10",
+		"field" => "poll_page",
+		"buttons" => "page_id",
+	),
+	"magazines_list" => array(
+		"class" => "base::textbox",
+		"prompt" => Dreamedit::translate("Список ID главных страниц журналов "),
+		"size" => "50",
+		"field" => "magazines_list",
+
+	),
+    "last_num" => array(
+		"class" => "base::integer",
+		"prompt" => Dreamedit::translate("Количество книг в новинках"),
+		"size" => "10",
+		"field" => "last_num",
+
+	),
+
+
+
+	"contact_mail"     => array(
+		"class" => "base::textbox",
+		"prompt" => Dreamedit::translate("Контактный e-mail"),
+		"size" => "51",
+		"field" => "contact_mail",
+	),
+	"copyright"    => array(
+		"class" => "base::editor",
+		"prompt" => Dreamedit::translate("Копирайт"),
+		"field" => "copyright",
+		"type" => "Basic",
+	),
+	"copyright_en"    => array(
+		"class" => "base::editor",
+		"prompt" => Dreamedit::translate("Копирайт (English)"),
+		"field" => "copyright_en",
+		"type" => "Basic",
+	),
+	"counter"    => array(
+		"class" => "base::textarea",
+		"prompt" => Dreamedit::translate("Счетчики"),
+		"cols" => "51",
+		"rows" => "5",
+		"field" => "counter",
+	),
+    "fc_first"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал первая колонка"),
+        "field" => "fc_first",
+        "type" => "Default",
+    ),
+    "fc_second"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал вторая колонка"),
+        "field" => "fc_second",
+        "type" => "Default",
+    ),
+    "fc_third"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал третья колонка"),
+        "field" => "fc_third",
+        "type" => "Default",
+    ),
+    "footer_copyright"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал копирайт"),
+        "field" => "footer_copyright",
+        "type" => "Default",
+    ),
+    "fc_first_en"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал первая колонка (En)"),
+        "field" => "fc_first_en",
+        "type" => "Default",
+    ),
+    "fc_second_en"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал вторая колонка (En)"),
+        "field" => "fc_second_en",
+        "type" => "Default",
+    ),
+    "fc_third_en"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал третья колонка (En)"),
+        "field" => "fc_third_en",
+        "type" => "Default",
+    ),
+    "footer_copyright_en"    => array(
+        "class" => "base::editor",
+        "prompt" => Dreamedit::translate("Подвал копирайт (En)"),
+        "field" => "footer_copyright_en",
+        "type" => "Default",
+    ),
+	"og_image_common" => array(
+		"class" => "base::editor",
+		"prompt" => Dreamedit::translate("Open Graph Картинка Общая"),
+		"type" => "Basic",
+		"field" => "og_image_common",
+	),
+	"og_image_common_en" => array(
+		"class" => "base::editor",
+		"prompt" => Dreamedit::translate("Open Graph Картинка Общая English"),
+		"type" => "Basic",
+		"field" => "og_image_common_en",
+	),
+);
+
+?>

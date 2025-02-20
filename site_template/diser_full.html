@@ -1,0 +1,55 @@
+<?
+global $DB,$_CONFIG, $site_templater; 
+
+$pg = new Pages();
+
+
+
+$ilines = new Ilines();
+
+$rows = $ilines->getElementById(@$_REQUEST["id"]);
+
+$rows = $ilines->appendContentDisser(array(@$_REQUEST["id"] => $rows));
+if(!isset($_REQUEST["id"]) || empty($_REQUEST["id"]))
+	Dreamedit::sendLocationHeader($pg->getPageUrl($pg->getParentId($_TPL_REPLACMENT["FULL_ID"])));
+else
+	$site_templater->appendValues(array("TITLE" =>"ќбъ€вление о защите диссертации"));
+	$site_templater->appendValues(array("TITLE" =>strip_tags($rows[0][prev_text])));
+	$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."top.text.html");
+$v=$rows[0];
+if(!empty($v))
+{
+	
+	if(isset($v["date"]))
+	{
+		preg_match("/([0-9]{4})\.([0-9]{2})\.([0-9]{2}) ([0-9]{2})\:([0-9]{2})/i", $v["date"], $matches);
+		$v["date"] = mktime($matches[4], $matches[5], 0, $matches[2], $matches[3], $matches[1]);
+		$v["date"] = date("d.m.Yг.", $v["date"]);
+	}
+   
+	if(isset($v["date2"]))
+	{
+		preg_match("/([0-9]{4})\.([0-9]{2})\.([0-9]{2}) ([0-9]{2})\:([0-9]{2})/i", $v["date2"], $matches);
+		$v["date2"] = mktime($matches[4], $matches[5], 0, $matches[2], $matches[3], $matches[1]);
+		$v["date2"] = date("d.m.Yг.", $v["date2"]);
+	}
+	$ret=$_TPL_REPLACMENT["RET_ID"];
+	$tpl = new Templater();
+	$tpl->setValues($v);
+		$tpl->appendValues($_TPL_REPLACMENT);
+		$tpl->appendValues(array("ID" => $k));
+		$tpl->appendValues(array("RANG_TEXT" => $v["rang"]));
+		$tpl->appendValues(array("SOVET_TEXT" => $v["SOVET"]));
+		$tpl->appendValues(array("SPEC_TEXT" => $v["SOVET"]));
+		$tpl->appendValues(array("REF" => $v["REFER"]));
+		$tpl->appendValues(array("GO" => false));
+		
+
+		$tpl->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."tpl.disser.html");
+}
+
+//echo "<a href=\"".$pg->getPageUrl($pg->getParentId($ret))."\">назад</a><br /><br />";
+echo "<a href=/index.php?page_id=".$_REQUEST[ret].">назад</a><br /><br />";
+$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."bottom.text.html");
+?>
+

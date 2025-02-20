@@ -1,0 +1,11 @@
+
+UL.list-sorting {
+	LIST-STYLE-TYPE: none;
+	MARGIN: 0px;
+	PADDING: 0px;
+}
+
+UL.list-sorting LI {
+	CURSOR: move;
+	MARGIN-BOTTOM: 3px;
+}

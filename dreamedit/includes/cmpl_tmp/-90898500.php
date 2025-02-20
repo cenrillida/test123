@@ -1,0 +1,1 @@
+<td class="d"><strong><a href="<?=@$_TPL_REPLACMENT["PAGE_URLNAME"]?>"><p>&nbsp;</p>ядекюрэ ярпюмхжс<br>ярюпрнбни</td>

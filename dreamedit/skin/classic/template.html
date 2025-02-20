@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>{TITLE}</title>
+<meta http-equiv="Content-Type" content="text/html; charset={CHARSET}"> 
+<meta name="robots" content="noindex,nofollow">
+<base href="https://{SITE}{ADMIN_DIR}" />
+<meta name="keywords" content="" />
+<meta name="description" content="{DESCRIPTION}" />
+
+<link rel="stylesheet" type="text/css" href="{SKIN_PATH}de_style.css" />
+
+{CSS}
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<script type="text/javascript" src="js/de_action.js?v=3"></script>
+<script type="text/javascript" src="js/de_default.js?v=3"></script>
+<script type="text/javascript" src="js/de_menu.js"></script>
+<script type="text/javascript" src="includes/ckeditor/ckeditor.js"></script>
+{JSCRIPT}
+</head>
+
+<!-- функция setSize() может принимать в кач-ве параметра ширину левого рабочего блока для удобства отображения информации в нем. Впоследствии может потребоваться для некоторых модулей -->
+<body onload="setSize({LEFT_WIDTH}); activateActionPanel(); loading();" onresize="setSize(leftGlobalForResize);">
+<div class="loading" style="DISPLAY: block;" id="loading"><br /><?=Dreamedit::translate("Загрузка...");?></div>
+<table width="100%">
+	<tr valign="top" class="top_row">
+		<td><div style="WIDTH: 10px; FONT-SIZE: 1px;"></div></td>
+		
+		<td><div style="WIDTH: 5px; FONT-SIZE: 1px;"></div></td>
+		
+		<td>
+			<div style="WIDTH: 200px;">
+				<a href="{DE_LINK}" title="{TITLE}" target="_blank"><img src="{SKIN_PATH}images/{LOGO_IMG}" width="107" height="49" class="logo" alt="{TITLE}" title="{TITLE}" /></a>
+				<div>{VERINFO}</div>
+			</div>
+		</td>
+		
+		<td><div style="WIDTH: 5px; FONT-SIZE: 1px;"></div></td>
+
+		<td width="100%">
+			<div class="button_block" id="button_block">
+				<!-- место расположения кнопок-действий модулей -->
+				{BUTTON_BLOCK}
+			</div>
+		</td>
+
+		<td><div style="WIDTH: 5px; FONT-SIZE: 1px;"></div></td>
+	</tr>
+
+	<tr><td colspan="6"><div style="HEIGHT: 5px; FONT-SIZE: 1px;"></div></td></tr>
+</table>
+
+<table width="100%">
+	<tr valign="top">
+		<!--td>
+			<div class="menu_block" id="menu_block"><img src="{SKIN_PATH}images/menu_top.gif" width="45" height="6" /><br /-->
+				
+				<!-- место расположение меню -->
+				<!--a href=""><img src="{SKIN_PATH}images/action/set_de.gif" width="32" height="32" /></a>
+				<a href=""><img src="{SKIN_PATH}images/action/set_db.gif" width="32" height="32" /></a-->
+				<!--br /><br /><br />
+
+			<img src="{SKIN_PATH}images/menu_bottom.gif" width="45" height="6" /></div>
+			<div style="WIDTH: 10px; FONT-SIZE: 1px;"></div-->
+		</td>
+		
+		<td><div style="WIDTH: 5px; FONT-SIZE: 1px;"></div></td>
+		
+		<td height="100%">
+			<h2>{TITLE}</h2>
+			<div class="left_block" id="left_block" onmouseover="setSize(700)" onmouseout="setSize({LEFT_WIDTH})">
+				<!-- левый рабочий блок -->
+				{LEFT_BLOCK}
+			</div>
+		</td>
+		
+
+		<td><div style="WIDTH: 5px; FONT-SIZE: 1px;"></div></td>
+		
+		<td>
+			<h2><button id="toggleMenuButton" style="width: 150px; font-size: 10px;" onclick="toggleLeftMenu(this);">Свернуть меню</button> {ACTION_TITLE}</h2>
+			<div class="right_block" id="right_block">
+				<!-- правый (основной) рабочий блок -->
+				{RIGHT_BLOCK}
+			</div>
+		</td>
+		
+		<td><div style="WIDTH: 5px; FONT-SIZE: 1px;"></div></td>
+	</tr>
+
+	<tr><td colspan="6"><div style="HEIGHT: 5px; FONT-SIZE: 1px;"></div></td></tr>
+
+</table>
+
+</body>
+</html>
+				

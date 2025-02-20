@@ -1,0 +1,440 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--
+* File Name: CleanTagsConfig.html
+* 	Plugin to expanded clearning of html
+*
+* File Authors:
+* 		Willfred di Vampo (divampo@gmail.com)
+-->
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=cp1251">
+		<meta name="robots" content="noindex, nofollow">
+		<script language="javascript">
+
+			var oEditor		= window.parent.InnerDialogLoaded() ;
+			var FCK			= oEditor.FCK ;
+			var FCKLang		= oEditor.FCKLang ;
+			var FCKConfig	= oEditor.FCKConfig ;
+			var oDOM		= oEditor.FCK.EditorDocument ;
+			var oEditorSel  = FCK.Selection.GetParentElement();
+
+			var goodTags       = new Object();
+			var goodAttributes = new Object();
+			var goodClasses    = new Object();
+			var goodStyles     = new Object();
+
+			window.onload = function()
+			{
+				// Translate the dialog box texts.
+				oEditor.FCKLanguageManager.TranslatePage(document) ;
+				//window.parent.SetAutoSize( true ) ; // хз для чего, но у многих есть!!!
+				window.parent.SetOkButton( true ) ; // показываем кнопку Ok
+
+				//if(oEditorSel == null)
+				//{
+					GetE("cleanSel").disabled = true;
+					GetE("cleanSelLabel").disabled = true ;
+				//}
+				//else
+				//{
+				//	GetE("cleanSel").checked = true;
+				//	FCK.Selection.SelectNode(oEditorSel)
+				//}
+
+
+			}
+
+			/////////////////////
+			// Добавление нового нужного эл-та в один из двойных блоков
+			/////////////////////
+			function addElements(idPref)
+			{
+				var tagsBlock = GetE(idPref + "Tags");
+				var attrBlock = GetE(idPref + "Attr");
+
+				var i = 0;
+				while(GetE(idPref + "_Tag" + i))
+					i++;
+
+			//	<input type="text" id="someGoodAttr_Tag0" value="img" style="WIDTH: 100px;" /><br />
+				var tagsInput = document.createElement("INPUT");
+				tagsInput.type = "text";
+				tagsInput.id = idPref + "_Tag" + i;
+				tagsInput.style.width = "100px";
+
+			//	<input type="text" id="someGoodAttr_Attr0" value="align,alt,src" style="WIDTH: 286px;" /><br />
+				var attrInput = document.createElement("INPUT");
+				attrInput.type = "text";
+				attrInput.id = idPref + "_Attr" + i;
+				attrInput.style.width = "286px";
+
+				tagsBlock.appendChild(tagsInput);
+				tagsBlock.innerHTML += "<br />";
+				attrBlock.appendChild(attrInput);
+				attrBlock.innerHTML += "<br />";
+
+				return false;
+			}
+
+			/////////////////////
+			// Получить элемент по ID
+			/////////////////////
+			function GetE( elementId )
+			{
+				return document.getElementById( elementId )  ;
+			}
+
+			/////////////////////
+			// отрабатываем нажатие кнопки Ок
+			/////////////////////
+			function Ok()
+			{
+				oEditor.FCKUndo.SaveUndoStep() ;
+
+				// Инициализация
+				CleanerInit();
+
+				if(oEditorSel != null && GetE("cleanSel").checked)
+				{
+					var str = Cleaner(oEditorSel.outerHTML); // Отчистка
+					FCK.InsertHtml(str); // Вставка
+				}
+				else
+				{
+					var str = Cleaner(FCK.GetHTML()); // Отчистка
+					FCK.SetHTML(str); // Вставка
+				}
+				// Закрытие окна
+				window.parent.Cancel() ;
+			}
+
+			/////////////////////
+			// инициируем массивы нужных элементов
+			/////////////////////
+			function CleanerInit()
+			{
+				// инициируем нужные теги
+				var splittedTags = GetE("goodTags").value.split(",");
+				for (var i in splittedTags)
+					goodTags[splittedTags[i].toLowerCase()] = true;
+
+				// инициируем общие нужные аттрибуты
+				var splittedArrts = GetE("goodAttr").value.split(",");
+				goodAttributes[""] = new Object();
+				for (var i in splittedArrts)
+					goodAttributes[""][splittedArrts[i].toLowerCase()] = true;
+
+				// инициируем отдельные аттрибуты для тегов
+				var i = 0;
+				while(GetE("someGoodAttr_Tag" + i))
+				{
+					var splittedAttrTags = GetE("someGoodAttr_Tag" + i).value.split(",");
+					var splittedAttrAttr = GetE("someGoodAttr_Attr" + i).value.split(",");
+
+					for(var tag in splittedAttrTags)
+					{
+						var lowerAttrTag = splittedAttrTags[tag].toLowerCase();
+						if (!goodAttributes[lowerAttrTag]) goodAttributes[lowerAttrTag] = new Object();
+						for(var attr in splittedAttrAttr)
+							goodAttributes[lowerAttrTag][splittedAttrAttr[attr].toLowerCase()] = true;
+					}
+
+					i++;
+				}
+
+				// инициируем общие нужные классы
+				var splittedClasses = GetE("goodClasses").value.split(",");
+				for (var i in splittedClasses)
+					goodClasses[splittedClasses[i]] = true;
+
+
+				// инициируем отдельные стили для тегов
+				var i = 0;
+				while(GetE("goodStyles_Tag" + i))
+				{
+					var splittedStyleTags = GetE("goodStyles_Tag" + i).value.split(",");
+					var splittedStyleAttr = GetE("goodStyles_Attr" + i).value.split(",");
+
+					for(var tag in splittedStyleTags)
+					{
+						if (!goodStyles[splittedStyleTags[tag]]) goodStyles[splittedStyleTags[tag]] = new Object();
+						for(var attr in splittedStyleAttr) goodStyles[splittedStyleTags[tag]][splittedStyleAttr[attr]] = true;
+					}
+
+					i++;
+				}
+			}
+
+if(window.HTMLElement){
+			HTMLElement.prototype.removeNode = function(removeChildren)
+			{
+			  if (Boolean(removeChildren))
+			    return this.parentNode.removeChild(this);
+			  else {
+			    var r=document.createRange();
+			    r.selectNodeContents(this);
+			    return this.parentNode.replaceChild(r.extractContents(),this);
+			  }
+			}
+			String.prototype.ltrim = function() {
+	return this.replace(/^\s+/,"");
+ }
+
+			}
+
+			//
+			// очистка переданного объекта
+			//
+			function CleanObject(obj)
+			{
+				var tag = obj.tagName.toLowerCase();
+
+
+
+
+				if((obj.outerHTML != null)&&(obj.outerHTML.substr(0,2) == "<?"))
+					return;
+
+        //        try{
+	//				if(obj.innerHTML.ltrim().substr(1,3) == "!--")
+	//				{
+	//					obj.innerHTML = "";
+	//				}
+	//			}
+	///			catch(exc)
+	//			{
+	//			}
+
+
+				// Удаление неправильного тега
+				if(!goodTags[tag])
+				{
+						obj.removeNode(false);
+						return;
+				}
+
+				// Удаление неправильных стилей
+				var objGoodStyles = new Object();
+				if(goodStyles[tag])
+				{
+					for(var gStyle in goodStyles[tag])
+					{
+						if(obj.style[gStyle])
+							objGoodStyles[gStyle] = obj.style[gStyle]; // сохраняем нужные стили
+					}
+				}
+
+				obj.style.cssText = ""; // убираем все имеющиеся в объекте стили
+
+				for(var nStyle in objGoodStyles)
+					obj.style[nStyle] = objGoodStyles[nStyle]; // ставим нужные стили на место
+
+				// Работа с аттрибутами
+				if (!obj.attributes)
+					return;
+
+
+				// Удаление className
+				if(obj.className != "")
+				{
+					var objGoodClasses = new Object();
+					var splittedClasses = obj.className.split(" ");
+					for(var oClass in splittedClasses)
+					{
+						if(goodClasses[splittedClasses[oClass]])
+							objGoodClasses[splittedClasses[oClass]] = 1; // сохраняем имена нужных классов
+					}
+
+					//alert("Было:"+obj.className);
+					obj.removeAttribute("className"); // сносим весь класс
+					obj.className = "";
+					//alert("Стало:"+obj.className);
+
+					var first = true;
+					for(var nClasses in objGoodClasses)
+					{
+						if(!first)
+							obj.className += " ";
+						obj.className += nClasses; // ставим все нужные классы на место
+						first = false;
+					}
+				}
+
+				// Удаляем ненужные аттрибуты
+				for (var name in obj.attributes)
+				{
+					var lowerAttr = name.toLowerCase();
+					if("" + obj.attributes[name] == "null" || (!goodAttributes[""][lowerAttr] && (!goodAttributes[tag] || !goodAttributes[tag][lowerAttr]) && lowerAttr != "classname"))
+					{
+						obj.removeAttribute(name);
+					}
+				}
+			}
+
+			/////////////////////
+			// чистка DOM дерева
+			////////////////////
+			function CleanTree(obj, mustClean)
+			{
+				var children = obj.children;
+				if(children)
+				{
+					// начинаем чистку с ПОСЛЕДНЕГО children'а во избежани переиндексации массива (в случае  удаления элемента)
+					for(var i = children.length - 1; i >= 0; i--)
+					{
+						CleanTree(children[i], true);
+					}
+				}
+
+				if(mustClean) CleanObject(obj); // читсим текущий элемент
+			}
+
+
+			/////////////////////
+			// Запуск чистильщика
+			/////////////////////
+			function Cleaner(html)
+			{
+				var oBuffer = document.createElement("DIV"); // создаем объект для нашего кода
+
+				oBuffer.innerHTML = html.replace(/<\/?\w+:\w+\s*[^>]*>/gi, ""); // уничтожаем "не" теги (<a:n>) и помещаем html в объект
+				oBuffer.innerHTML = oBuffer.innerHTML.replace(/<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>/gi,"");
+
+
+				CleanTree(oBuffer, false); // начинаем чистку
+
+				html = oBuffer.innerHTML; // получаем чистый html
+
+			// дополнительные подчистки
+			//	html = html.replace(/<p\ ?>&nbsp;<\/p>/gi, "<br />");
+
+				html = html.replace(/(style=""\ ?)/gi, "");
+				html = html.replace(/(class=""\ ?)/gi, "");
+
+				return html;
+			}
+
+
+		</script>
+		<style>
+			.CTblock
+			{
+				BORDER: #dcdcdc 2px solid;
+				BACKGROUND-COLOR: #ffffff;
+				OVERFLOW: auto;
+				WIDTH: 418px;
+				HEIGHT: 308px;
+			}
+			.addRow {
+				FLOAT: right;
+				CURSOR: hand;
+				CURSOR: pointer;
+				TEXT-DECORATION: underline;
+			}
+			.selectCleanArea {
+				BORDER: #dcdcdc 2px solid;
+				MARGIN-TOP: 5px;
+				BACKGROUND-COLOR: #ffffff;
+				OVERFLOW: none;
+				WIDTH: 418px;
+				HEIGHT: 30px;
+			}
+		</style>
+	</head>
+
+	<body scroll="no" style="OVERFLOW: hidden">
+		<table width="100%" height="100%">
+			<tr valign="top">
+				<td height="100%" align="left">
+					<div class="CTblock">
+						<table width="100%">
+							<!-- Нужные теги -->
+							<tr>
+								<td colspan="2" width="100%">
+									<b><span fckLang="DlgCleanTagsGoodTags">List of good tags:</span></b><br />
+									<textarea id="goodTags" style="WIDTH: 391px; HEIGHT: 60px;">a,p,br,strong,b,em,i,u,strike,ul,ol,li,img,table,tr,th,td,small,big,sub,sup</textarea>
+								</td>
+							</tr>
+
+							<tr><td colspan="2" height="7"></td></tr>
+
+							<!-- Нужные аттрибуты -->
+							<tr>
+								<td colspan="2" width="100%">
+									<b><span fckLang="DlgCleanTagsGoodAttr">List of good attributes for any tags:</span></b><br />
+									<input type="text" id="goodAttr" value="title,alt,align" style="WIDTH: 391px;" />
+								</td>
+							</tr>
+
+							<tr><td colspan="2" height="7"></td></tr>
+
+							<!-- Нужные аттрибуты для отдельых тегов -->
+							<tr><td colspan="2" width="100%"><span onclick="return addElements('someGoodAttr');" fckLang="DlgCleanTagsAdd" class="addRow">add row</span><b><span fckLang="DlgCleanTagsSomeGoodAttr">List of good attributes for some tags:</span></b></td></tr>
+							<tr>
+								<td width="100">
+									<div id="someGoodAttrTags">
+										<span fckLang="DlgCleanTagsTags">Tags:</span><br />
+										<input type="text" id="someGoodAttr_Tag0" value="img" style="WIDTH: 100px;" /><br />
+										<input type="text" id="someGoodAttr_Tag1" value="table" style="WIDTH: 100px;" /><br />
+										<input type="text" id="someGoodAttr_Tag2" value="th,td,tr" style="WIDTH: 100px;" /><br />
+										<input type="text" id="someGoodAttr_Tag3" value="a" style="WIDTH: 100px;" /><br />
+									</div>
+								</td>
+								<td>
+									<div id="someGoodAttrAttr">
+										<span fckLang="DlgCleanTagsAttr">Attributes:</span><br />
+										<input type="text" id="someGoodAttr_Attr0" value="src,width,height,hspace,vspace" style="WIDTH: 286px;" /><br />
+										<input type="text" id="someGoodAttr_Attr1" value="cellspacing,cellpadding,width,height" style="WIDTH: 286px;" /><br />
+										<input type="text" id="someGoodAttr_Attr2" value="colspan,rowspan,nowrap,valign" style="WIDTH: 286px;" /><br />
+										<input type="text" id="someGoodAttr_Attr3" value="href,target" style="WIDTH: 286px;" /><br />
+									</div>
+								</td>
+							</tr>
+
+
+							<tr><td colspan="2" height="7"></td></tr>
+
+							<!-- Нужные классы -->
+							<tr>
+								<td colspan="2" width="100%">
+									<b><span fckLang="DlgCleanTagsGoodClasses">List of good classes:</span></b><br />
+									<input type="text" id="goodClasses" value="" style="WIDTH: 391px;" />
+								</td>
+							</tr>
+
+							<tr><td colspan="2" height="7"></td></tr>
+
+							<!-- Нужные стили для отдельных тегов -->
+							<tr><td colspan="2" width="100%"><span onclick="return addElements('goodStyles');" fckLang="DlgCleanTagsAdd" class="addRow">add row</span><b><span fckLang="DlgCleanTagsGoodStyles">List of good styles for some tags:</span></b></td></tr>
+							<tr>
+								<td width="100" id="GoodStylesTags">
+									<div id="goodStylesTags">
+										<span fckLang="DlgCleanTagsTags">Tags:</span><br />
+										<input type="text" id="goodStyles_Tag0" value="p" style="WIDTH: 100px;" /><br />
+										<input type="text" id="goodStyles_Tag1" value="table,tr,td,th" style="WIDTH: 100px;" /><br />
+									</div>
+								</td>
+								<td id="GoodStylesAttr">
+									<div id="goodStylesAttr">
+										<span fckLang="DlgCleanTagsAttr">Attributes:</span><br />
+										<input type="text" id="goodStyles_Attr0" value="" style="WIDTH: 286px;" /><br />
+										<input type="text" id="goodStyles_Attr1" value="" style="WIDTH: 286px;" /><br />
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="selectCleanArea">
+						&nbsp;<span fckLang="DlgCleanArea">Cleaner area:</span><br />
+						<input type="radio" name="selArea" id="cleanAll" checked /><label id="cleanAllLabel" for="cleanAll" fckLang="DlgCleanAreaAll" />All</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="selArea" id="cleanSel" /><label id="cleanSelLabel" for="cleanSel" fckLang="DlgCleanAreaSel" />Selected</label>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

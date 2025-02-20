@@ -1,0 +1,1 @@
+<?=@$_TPL_REPLACMENT["YEAR_BEG"]?> - <?=@$_TPL_REPLACMENT["TITLE"]?>

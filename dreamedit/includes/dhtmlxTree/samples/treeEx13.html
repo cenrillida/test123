@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<meta name="KEYWORDS" content="dhtmlxtree, dhtml tree, javascript tree, javascript, DHTML, tree, tree menu, dynamical loading, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, treeview, navigation, menu, tree control, script, javascript navigation, web-site, dynamic, javascript tree menu, dhtml tree menu, dynamic tree, folder tree, item, node, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML tree menu with XML support and powerful API. This customizable DHTML JavaScript Tree Menu allows you to assign different functions to event handlers">
+
+<title>DHTML JavaScirpt Tree samples - dhtmlxTree - Action handlers</title>
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Tree samples</div>
+	<h1>Action handlers</h1>
+	<p>This JavaScript tree example illustrates the ability to assign user-defined functions to different
+	 event handlers (e.g. <em>Mouse Over, Mouse Out, Check, UnCheck, Select, Deselect</em>). If you try to change 
+	 a checkbox value, an alert box will appear. Alert box is displayed also when a tree node is selected. 
+	 Confirm box will pop up if user opens or closes a node.<br>
+So, dhtmlxTree allows you to define any functions and attach them to event handlers in order to customize 
+tree behavior. That enriches possibilities for user interaction with JavaScript tree interface.</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXTree.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXTree.js"></script>		
+
+	<table>
+		<tr>
+			<td>
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;"/>
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+	<hr>
+<XMP>
+<div id="treeBox" style="width:200;height:200"></div>
+<script>
+	tree=new dhtmlXTreeObject(document.getElementById('treeBox'),"100%","100%",0);
+	
+	...
+	tree.setDragHandler(onDrop);//set function object to call on drop
+	tree.setOnClickHandler(onNodeSelect);//set function object to call on node select
+	tree.setOnOpenHandler(aFunc);//set function to call on open/close node
+	tree.setOnCheckHandler(aFunc);//set function to call on open/close node
+	tree.setOnDblClickHandler(aFunc);//set function to call on dbl click
+</script>
+</XMP>	
+		<li>Selected node ID will be passed to function specified as argument for setDefaultAction(funcObj)</li>
+		<li>Dropped node ID and new parent node ID  will be passed to function specified as argument for setDragFunction(funcObj)</li>
+		<li>node ID will be passed to the function specified as argument for setOpenAction(aFunc)</li>
+		<li>node ID will be passed to the function specified as argument for setDblClickAction(aFunc)</li>
+	<script>
+			function tonclick(id){
+				alert("Item "+tree.getItemText(id)+" was selected");
+			};
+			function tondblclick(id){
+				alert("Item "+tree.getItemText(id)+" was doubleclicked");
+			};			
+			function tondrag(id,id2){
+				return confirm("Do you want to move node "+tree.getItemText(id)+" to item "+tree.getItemText(id2)+"?");
+			};
+			function tonopen(id,mode){
+				return confirm("Do you want to "+(mode>0?"close":"open")+" node "+tree.getItemText(id)+"?");
+			};
+			function toncheck(id,state){
+				alert("Item "+tree.getItemText(id)+" was " +((state)?"checked":"unchecked"));
+			};
+			
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../imgs/");
+			tree.enableCheckBoxes(1);
+			tree.enableDragAndDrop(1);
+			tree.setOnOpenHandler(tonopen);
+			tree.setOnClickHandler(tonclick);
+			tree.setOnCheckHandler(toncheck);
+			tree.setOnDblClickHandler(tondblclick);
+			tree.setDragHandler(tondrag);
+			
+			tree.loadXML("tree3.xml");
+	</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxTree/index.shtml" style="font-weight:bold;">Go to the dhtmlxTree main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+</body>
+</html>

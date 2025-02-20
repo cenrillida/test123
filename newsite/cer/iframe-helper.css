@@ -1,0 +1,11 @@
+@media (max-width: 350px) {
+    html {
+        transform: scale(0.8) translateX(-45px) translateY(-200px);
+    }
+}
+
+@media (max-width: 450px) {
+    html {
+        transform: scale(0.9) translateX(-30px) translateY(-100px);
+    }
+}

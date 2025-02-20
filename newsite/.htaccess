@@ -1,0 +1,17 @@
+RewriteEngine on
+Options +FollowSymlinks
+Options -Indexes
+RewriteBase /
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{REQUEST_FILENAME}	!-f
+RewriteCond %{REQUEST_FILENAME}	!-d
+RewriteRule (.*) /index.php [L]
+order allow,deny
+allow from all
+#deny from 141.8.*.*
+#deny from all
+#allow from 77.37.187.244
+<Files mail_auth.ini>
+order allow,deny
+deny from all
+</Files>

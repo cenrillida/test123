@@ -1,0 +1,42 @@
+.vypolzen_out {
+	position:fixed;//position:absolute;top:expression((document.body.scrollTop + document.body.clientHeight - document.getElementById("vypolzen").offsetHeight - 0)+ "px");
+	overflow:hidden;
+	bottom:0;
+	left:0px;
+	width:375px;
+	z-index:100000;	
+}
+.vypolzen_in {
+	position:relative;
+	overflow:hidden;
+	display:none;
+	bottom:0;
+	left:-375px;
+	width:375px;
+}
+	#vypolzen .up {
+		background:url(http://static.gazeta.ru/nm2008/i/box-shadow/top_l.png) no-repeat right top;
+		height:20px;font-size:1px;
+		}
+	#vypolzen .dn {
+		background:url(http://static.gazeta.ru/nm2008/i/box-shadow/bottom_l.png) no-repeat right bottom;
+		_height:27px;
+		min-height:27px;
+		padding-bottom:27px;
+		}
+	#vypolzen .eyes {
+		border-top:1px solid #ababab;
+		border-bottom:1px solid #ababab;
+		padding-top:8px;
+		padding-left:14px;
+		_padding-bottom:0.6em;
+		margin-bottom:10px;
+	}
+	#vypolzen_1x1 {
+		position:absolute;
+		left:-9999px;
+		}
+	#vypolzen .mlx14 {margin-right:14px;padding-left:14px;}
+	#vypolzen .eyes table {margin-right:14px}
+	#vypolzen .mlx13 {margin-right:13px}
+	* html body { background: #fff url(foo) fixed;}

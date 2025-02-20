@@ -1,0 +1,13 @@
+<?php
+
+require_once "AcademicCouncilPageBuilders/class.AcademicCouncilLoginFormPageBuilder.php";
+require_once "AcademicCouncilPageBuilders/class.AcademicCouncilQuestionnaireFormPageBuilder.php";
+require_once "AcademicCouncilPageBuilders/class.AcademicCouncilPersonalPageBuilder.php";
+require_once "AcademicCouncilPageBuilders/class.AcademicCouncilQuestionnaireCreateFormPageBuilder.php";
+require_once "AcademicCouncilPageBuilders/class.AcademicCouncilDocumentCreateFormPageBuilder.php";
+require_once "AcademicCouncilPageBuilders/class.AcademicCouncilQuestionnaireEditFormPageBuilder.php";
+require_once "AcademicCouncilPageBuilders/class.AcademicCouncilQuestionnaireMailerFormPageBuilder.php";
+
+interface AcademicCouncilPageBuilder {
+    public function build();
+}

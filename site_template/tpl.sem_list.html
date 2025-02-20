@@ -1,0 +1,50 @@
+<?
+$pg = new Pages();
+
+// print_r($_TPL_REPLACMENT);
+//echo "<strong>".str_replace("</p>","",str_replace("<p>","",$_TPL_REPLACMENT["DATE"]))."</strong>";
+if (!$_TPL_REPLACMENT["REPORT"])
+{
+if (!isset($_REQUEST[en]))
+$str=
+"<br /><a style='text-decoration:none' href=/index.php?page_id=".$_TPL_REPLACMENT['FULL_ID']."&id=".$_TPL_REPLACMENT['ID'].
+"&ret=".$_TPL_REPLACMENT[RET_ID].">".
+"подробнее...".
+"</a>"
+;
+else
+{
+$str=
+"<br /><a style='text-decoration:none' href=/index.php?page_id=".$_TPL_REPLACMENT['FULL_ID']."&id=".$_TPL_REPLACMENT['ID'].
+"&ret=".$_TPL_REPLACMENT[RET_ID].">".
+"more...".
+"</a>"
+;
+}
+}
+else
+$str=
+"<br /><a style='text-decoration:none' href=/index.php?page_id=".$_TPL_REPLACMENT['FULL_ID']."&id=".$_TPL_REPLACMENT['ID'].
+"&ret=".$_TPL_REPLACMENT[RET_ID].
+">".
+"отчет >>".
+"</a>"
+;
+
+if (!empty($_TPL_REPLACMENT[SEM_NAME]))
+  echo "<h4><a title='О семинаре' href=/index.php?page_id=".$_TPL_REPLACMENT[SEM_ID].
+  "&ret=".$_TPL_REPLACMENT[RET_ID].
+  ">".$_TPL_REPLACMENT[SEM_NAME]."</a></h4>";
+
+if($_TPL_REPLACMENT["GO"])
+{
+   echo substr($_TPL_REPLACMENT["PREV_TEXT"],0,-4).str_replace("</p>",$str."</p>",
+     substr($_TPL_REPLACMENT["PREV_TEXT"],-4,4));
+}
+else
+  echo $_TPL_REPLACMENT["PREV_TEXT"];
+//if ($_TPL_REPLACMENT[GO]) echo $str;
+
+?>
+<hr />
+<br clear="all" />

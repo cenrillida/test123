@@ -1,0 +1,1 @@
+<td class="d"><strong><a href="<?=@$_TPL_REPLACMENT["PAGE_URLNAME"]?>"><img border=0 hspace=6 height="18" width="26" src="/files/Image/ru.jpg" alt="" />–”—— »…</td>

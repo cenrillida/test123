@@ -1,0 +1,8 @@
+SetEnv force-no-vary
+SetEnv downgrade-1.0
+AuthType Basic
+AuthName "By Invitation Only"
+AuthUserFile /home/imemon/.htpasswd
+Require valid-user
+RewriteEngine off
+DirectoryIndex index.php

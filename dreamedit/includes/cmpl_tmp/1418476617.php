@@ -1,0 +1,1 @@
+{date2} - <?=@$_TPL_REPLACMENT["TITLE"]?>

@@ -1,0 +1,1 @@
+<?=@$_TPL_REPLACMENT["TEXT"]?> - <?=@$_TPL_REPLACMENT["TEXT_EN"]?>

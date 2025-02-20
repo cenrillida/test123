@@ -1,0 +1,13 @@
+<?
+$pg = new Pages();
+?>
+<span class="date"><b>{DATE}</b> {TITLE}</span> 
+&nbsp;{PREV_TEXT}
+<?
+if($_TPL_REPLACMENT["GO"])
+{
+?>
+<a href="<?=$pg->getPageUrl($_TPL_REPLACMENT["FULL_ID"], array("id" => $_TPL_REPLACMENT["ID"], "p" => @$_REQUEST["p"]))?>">подробнее...</a>
+<?
+}?>
+<br clear="all" /><br />&nbsp; <br />

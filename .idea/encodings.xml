@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/cron/index.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/dreamedit/filters/filter.cernew_info_window.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/dreamedit/includes/Crossref/Services/NumberCheckService.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dreamedit/includes/Crossref/Services/PublCheckService.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dreamedit/includes/ImageUploader.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/dreamedit/includes/TelegramBot/Mappers/UserMapper.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/dreamedit/includes/class.MagazineNew.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/dreamedit/test_firebase.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/dreamedit/xml_test.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dreamedit/xml_test_upload.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/newsite/cer/shiny-server-client.min.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/newsite/css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/newsite/css/jcarousel.connected-carousels.css" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/fonts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/newsite/fonts/Designosaur-Italic.otf" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/fonts/Designosaur-Regular.otf" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/newsite/img/ajax-loader.gif" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_jour.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_jour_en.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_presscenter_s.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_presscenter_w.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_small.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_small_en.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_widther.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/img/logo_widther_en.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/newsite/js/dncalendar.js" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/js/jcarousel.connected-carousels.js" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/js/jquery.jcarousel.min.js" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/js/main.js" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/newsite/js/main_test.js" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/site_template/cmpl_tmp/magazine_page.html.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/site_template/cmpl_tmp/new/mag_search.html.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/site_template/vars.mag_index.php" charset="windows-1251" />
+    <file url="PROJECT" charset="windows-1251" />
+  </component>
+</project>

@@ -1,0 +1,893 @@
+/** Stage container **/
+
+.connected-carousels .stage {
+    width: 396px;
+    position: relative;
+}
+
+.connected-carousels .photo-credits {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+    opacity: .66;
+}
+
+.connected-carousels .photo-credits a {
+    color: #fff;
+}
+
+/** Navigation container **/
+
+.connected-carousels .navigation {
+    width: 260px;
+    margin: 20px auto;
+    position: relative;
+}
+
+/** Shared carousel styles **/
+
+.connected-carousels .carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.connected-carousels .carousel ul {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.connected-carousels .carousel li {
+    float: left;
+}
+
+.connected-carousels .carousel-down {
+    overflow: hidden;
+    position: relative;
+}
+
+.connected-carousels .carousel-down ul {
+    height: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.connected-carousels .carousel-down li {
+    float: top;
+}
+
+/** Stage carousel specific styles **/
+
+.connected-carousels .carousel-stage {
+    height: 264px;
+    width: 590px;
+    border: 0px solid #fff;
+}
+
+.connected-carousels .carousel-stage1 {
+    height: 45px;
+    width: 476px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage-dynkin-photo {
+    height: 264px;
+    width: 590px;
+    border: 0px solid #fff;
+}
+
+.connected-carousels .carousel-stage-dynkin-photo1 {
+    height: 45px;
+    width: 476px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage-ph-h {
+    height: 200px;
+    width: 300px;
+    border: 0px solid #fff;
+}
+
+.connected-carousels .carousel-stage-ph-h1 {
+    height: 70px;
+    width: 290px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage-ph-v {
+    height: 300px;
+    width: 300px;
+    border: 0px solid #fff;
+}
+
+
+.connected-carousels .carousel-stage-ph-v1 {
+    height: 70px;
+    width: 290px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+
+.connected-carousels .carousel-stage-ph-outofprint {
+    height: 240px;
+    width: 300px;
+    border: 0px solid #fff;
+}
+.connected-carousels .carousel-stage-ph-outofprint-fp {
+    height: 126px;
+    width: 590px;
+    border: 0px solid #fff;
+}
+
+.connected-carousels .carousel-stage-ph-dynkin-sidebar {
+    height: 169px;
+    width: 300px;
+    border: 0px solid #fff;
+}
+
+.connected-carousels .carousel-stage-ph-dynkin-sidebar1 {
+    height: 70px;
+    width: 290px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage-ph-video-sidebar {
+    height: 169px;
+    width: 300px;
+    border: 0px solid #fff;
+}
+
+.connected-carousels .carousel-stage-ph-video-sidebar1 {
+    height: 70px;
+    width: 290px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage2 {
+    height: 333px;
+    width: 592px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage21 {
+    height: 45px;
+    width: 476px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage-dynkin-video {
+    height: 333px;
+    width: 592px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+
+.connected-carousels .carousel-stage-dynkin-video1 {
+    height: 45px;
+    width: 476px;
+    border: 0px solid #fff;
+    /*-webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;*/
+}
+/** Navigation carousel specific styles **/
+
+.connected-carousels .carousel-navigation {
+    height: 60px;
+    width: 240px;
+    background: #fff;
+    border: 10px solid #fff;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .carousel-navigation li {
+    cursor: pointer;
+}
+
+.connected-carousels .carousel-navigation li img {
+    display: block;
+    border: 5px solid #fff;
+}
+
+.connected-carousels .carousel-navigation li.active img {
+    border-color: #ccc;
+}
+
+/** Stage carousel controls **/
+
+.connected-carousels .prev-stage,
+.connected-carousels .next-stage {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 155px;
+    height: 264px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage {
+    left: 0;
+}
+
+.connected-carousels .next-stage {
+    right: -200;
+}
+
+.connected-carousels .prev-stage.inactive,
+.connected-carousels .next-stage.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage span,
+.connected-carousels .next-stage span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage:hover span,
+.connected-carousels .next-stage:hover span {
+    display: block;
+}
+
+
+/** Stage carousel controls **/
+
+.connected-carousels .prev-stage-dynkin-photo,
+.connected-carousels .next-stage-dynkin-photo {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 155px;
+    height: 264px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-dynkin-photo {
+    left: 0;
+}
+
+.connected-carousels .next-stage-dynkin-photo {
+    right: -200;
+}
+
+.connected-carousels .prev-stage-dynkin-photo.inactive,
+.connected-carousels .next-stage-dynkin-photo.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-dynkin-photo span,
+.connected-carousels .next-stage-dynkin-photo span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-dynkin-photo span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-dynkin-photo span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-dynkin-photo:hover span,
+.connected-carousels .next-stage-dynkin-photo:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage2,
+.connected-carousels .next-stage2 {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 155px;
+    height: 333px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage2 {
+    left: 0;
+}
+
+.connected-carousels .next-stage2 {
+    right: -200;
+}
+
+.connected-carousels .prev-stage2.inactive,
+.connected-carousels .next-stage2.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage2 span,
+.connected-carousels .next-stage2 span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage2 span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage2 span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage2:hover span,
+.connected-carousels .next-stage2:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage-ph-h,
+.connected-carousels .next-stage-ph-h {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 155px;
+    height: 200px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-ph-h {
+    left: 0;
+}
+
+.connected-carousels .next-stage-ph-h {
+    right: 0;
+}
+
+.connected-carousels .prev-stage-ph-h.inactive,
+.connected-carousels .next-stage-ph-h.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-ph-h span,
+.connected-carousels .next-stage-ph-h span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-ph-h span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-ph-h span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-ph-h:hover span,
+.connected-carousels .next-stage-ph-h:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage-ph-v,
+.connected-carousels .next-stage-ph-v {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 155px;
+    height: 300px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-ph-v {
+    left: 0;
+}
+
+.connected-carousels .next-stage-ph-v {
+    right: 0;
+}
+
+.connected-carousels .prev-stage-ph-v.inactive,
+.connected-carousels .next-stage-ph-v.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-ph-v span,
+.connected-carousels .next-stage-ph-v span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-ph-v span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-ph-v span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-ph-v:hover span,
+.connected-carousels .next-stage-ph-v:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage-ph-outofprint,
+.connected-carousels .next-stage-ph-outofprint {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 75px;
+    height: 240px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-ph-outofprint {
+    left: 0;
+}
+
+.connected-carousels .next-stage-ph-outofprint {
+    right: 0;
+}
+
+.connected-carousels .prev-stage-ph-outofprint.inactive,
+.connected-carousels .next-stage-ph-outofprint.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-ph-outofprint span,
+.connected-carousels .next-stage-ph-outofprint span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-ph-outofprint span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-ph-outofprint span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-ph-outofprint:hover span,
+.connected-carousels .next-stage-ph-outofprint:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage-ph-outofprint-fp,
+.connected-carousels .next-stage-ph-outofprint-fp {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 75px;
+    height: 126px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-ph-outofprint-fp {
+    left: 90;
+}
+
+.connected-carousels .next-stage-ph-outofprint-fp {
+    right: 0;
+}
+
+.connected-carousels .prev-stage-ph-outofprint-fp.inactive,
+.connected-carousels .next-stage-ph-outofprint-fp.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-ph-outofprint-fp span,
+.connected-carousels .next-stage-ph-outofprint-fp span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-ph-outofprint-fp span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-ph-outofprint-fp span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-ph-outofprint-fp:hover span,
+.connected-carousels .next-stage-ph-outofprint-fp:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage-ph-dynkin-sidebar,
+.connected-carousels .next-stage-ph-dynkin-sidebar {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 75px;
+    height: 169px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-ph-dynkin-sidebar {
+    left: 0;
+}
+
+.connected-carousels .next-stage-ph-dynkin-sidebar {
+    right: 0;
+}
+
+.connected-carousels .prev-stage-ph-dynkin-sidebar.inactive,
+.connected-carousels .next-stage-ph-dynkin-sidebar.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-ph-dynkin-sidebar span,
+.connected-carousels .next-stage-ph-dynkin-sidebar span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-ph-dynkin-sidebar span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-ph-dynkin-sidebar span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-ph-dynkin-sidebar:hover span,
+.connected-carousels .next-stage-ph-dynkin-sidebar:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage-ph-video-sidebar,
+.connected-carousels .next-stage-ph-video-sidebar {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 75px;
+    height: 169px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-ph-video-sidebar {
+    left: 0;
+}
+
+.connected-carousels .next-stage-ph-video-sidebar {
+    right: 0;
+}
+
+.connected-carousels .prev-stage-ph-video-sidebar.inactive,
+.connected-carousels .next-stage-ph-video-sidebar.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-ph-video-sidebar span,
+.connected-carousels .next-stage-ph-video-sidebar span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-ph-video-sidebar span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-ph-video-sidebar span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-ph-video-sidebar:hover span,
+.connected-carousels .next-stage-ph-video-sidebar:hover span {
+    display: block;
+}
+
+/**/
+
+.connected-carousels .prev-stage-dynkin-video,
+.connected-carousels .next-stage-dynkin-video {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 155px;
+    height: 333px;
+    color: #fff;
+}
+
+.connected-carousels .prev-stage-dynkin-video {
+    left: 0;
+}
+
+.connected-carousels .next-stage-dynkin-video {
+    right: -200;
+}
+
+.connected-carousels .prev-stage-dynkin-video.inactive,
+.connected-carousels .next-stage-dynkin-video.inactive {
+    display: none;
+}
+
+.connected-carousels .prev-stage-dynkin-video span,
+.connected-carousels .next-stage-dynkin-video span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-stage-dynkin-video span {
+    left: 20px;
+}
+
+.connected-carousels .next-stage-dynkin-video span {
+    right: 20px;
+}
+
+.connected-carousels .prev-stage-dynkin-video:hover span,
+.connected-carousels .next-stage-dynkin-video:hover span {
+    display: block;
+}
+
+
+/** Navigation carousel controls **/
+
+.connected-carousels .prev-navigation,
+.connected-carousels .next-navigation {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 16px/29px Arial, sans-serif;
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
+.connected-carousels .prev-navigation {
+    left: -15px;
+    top: 22px;
+    text-indent: 6px;
+}
+
+.connected-carousels .next-navigation {
+    right: -15px;
+    top: 22px;
+    text-indent: 20px;
+}
+
+.connected-carousels .prev-navigation.inactive,
+.connected-carousels .next-navigation.inactive {
+    opacity: .5;
+    cursor: default;
+}

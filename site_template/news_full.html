@@ -1,0 +1,40 @@
+<?
+global $_CONFIG, $site_templater;
+
+$pg = new Pages();
+
+if(!isset($_REQUEST["id"]) || empty($_REQUEST["id"]))
+	Dreamedit::sendLocationHeader($pg->getPageUrl($pg->getParentId($_TPL_REPLACMENT["FULL_ID"])));
+
+$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."top.html");
+echo "@@@";
+
+$ilines = new Ilines();
+
+$rows = $ilines->getElementById(@$_REQUEST["id"]);
+
+$rows = $ilines->appendContent(array(@$_REQUEST["id"] => $rows));
+print_r($rows);
+if(!empty($rows))
+{
+	$tpl = new Templater();
+	if(isset($rows[@$_REQUEST["id"]]["content"]["DATE"]))
+	{
+		preg_match("/([0-9]{4})\.([0-9]{2})\.([0-9]{2}) ([0-9]{2})\:([0-9]{2})/i", $rows[@$_REQUEST["id"]]["content"]["DATE"], $matches);
+		$rows[@$_REQUEST["id"]]["content"]["DATE"] = mktime($matches[4], $matches[5], 0, $matches[2], $matches[3], $matches[1]);
+		$rows[@$_REQUEST["id"]]["content"]["DATE"] = date("d.m.Yг.", $rows[@$_REQUEST["id"]]["content"]["DATE"]);
+	}
+
+	$tpl->setValues($_TPL_REPLACMENT);
+	$tpl->appendValues(array("ID" => $k));
+	$tpl->appendValues($rows[@$_REQUEST["id"]]["content"]);
+	if (empty($_REQUEST["id"]]["content"][FULL_TEXT])) 
+	   $tpl->appendValues(array("FULL_TEXT" => $v[content][PREV_TEXT]));
+	$tpl->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."tpl.news_full.html");
+}
+
+echo "<a href=/index.php?page_id=".$_TPL_REPLACMENT["FULL_ID"]."&sem=".$_TPL_REPLACMENT[SEM]."&year=".$_TPL_REPLACMENT[YEAR].">назад</a><br /><br />";
+
+$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."bottom.html");
+?>
+

@@ -1,0 +1,1 @@
+<img src="<?=@$_TPL_REPLACMENT["SKIN_PATH"]?>images/action/<?=@$_TPL_REPLACMENT["IMG"]?>" action="<?=@$_TPL_REPLACMENT["NAME"]?>" confirm="<?=@$_TPL_REPLACMENT["CONFIRM"]?>" formName="<?=@$_TPL_REPLACMENT["FORM"]?>" alt="<?=@$_TPL_REPLACMENT["DESCR"]?>" title="<?=@$_TPL_REPLACMENT["DESCR"]?>" />

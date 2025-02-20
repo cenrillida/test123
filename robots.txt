@@ -1,0 +1,22 @@
+# robots.txt for http://www.imemo.ru
+
+User-Agent: *
+Crawl-delay: 20
+Disallow: /dreamedit
+Disallow: /classes
+Disallow: /calendar
+Disallow: /mysqladmin
+Disallow: /cpg15x
+Disallow: /css
+Disallow: /js
+Disallow: /photo_bank
+Disallow: /site_template
+Disallow: /smartoptimizer
+Disallow: /zenphoto
+Disallow: /Primakov_Readings_2018
+
+Host: www.imemo.ru
+
+User-agent: Yandex
+Clean-param: p&sem&ret&year /news/events/text
+Clean-param: tid&td1&td2 /publications/list

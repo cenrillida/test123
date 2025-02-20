@@ -1,0 +1,113 @@
+/*
+  header from site
+*/
+
+#header {
+    padding: 0 5px;
+}
+
+#container div.wrapper {
+    margin: 0 auto;
+    text-align: left;
+    width: 960px;
+}
+
+#logo {
+    float: left;
+    padding-left: 12px;
+    padding-top: 8px;
+    width: 430px;
+}
+
+h1.logo_main a {
+    background: url("/images/logo.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 112px;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 430px;
+}
+
+.fright {
+    background: url("/images/search.png") no-repeat scroll right top transparent;
+    float: right;
+}
+
+
+.fright nav {
+    float: right;
+}
+
+.menutop {
+    float: left;
+    margin: 0;
+    padding: 15px 20px 0;
+    position: relative;
+    z-index: 20;
+}
+ul {
+    list-style: none outside none;
+}
+
+
+.menutop li {
+    color: white;
+    float: left;
+    margin-left: 20px;
+    position: relative;
+}
+
+.menutop li a {
+    color: White;
+    font-size: 12px;
+    position: relative;
+    text-decoration: none;
+    z-index: 20;
+font-weight: normal;
+}
+
+#search {
+    float: right;
+    height: 86px;
+    width: 335px;
+}
+
+/*************************/
+
+
+#container {
+	background:#f0f0f0 url(images/bodybg-blue2.jpg) repeat-x;
+	background: url("/images/bg_body.gif") repeat scroll 0 0 #333333;
+}
+
+a {
+	color:#0B6D90;
+}
+
+#leftside ul.box li a {
+	color:#0B6D90;
+}
+
+#mainmenu a {
+	color: #0B6D90;
+}
+
+#mainmenu a:hover {
+	background: url(images/menuhover-blue.jpg) center left repeat-x;
+}
+
+#mainmenu li.current a {
+	background: url(images/menuhover-blue.jpg) center left repeat-x;
+}
+
+#mainmenu li.currentparent a {
+	background: url(images/menuhover-blue.jpg) center left repeat-x;
+}
+
+.image {
+	border-color: #0B6D90;
+}
+
+.intermed_image {
+	border-color: #0B6D90;
+}

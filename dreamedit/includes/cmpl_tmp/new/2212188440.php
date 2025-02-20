@@ -1,0 +1,1 @@
+<?=@$_TPL_REPLACMENT["VALUE"]?> - <?=@$_TPL_REPLACMENT["TEXT"]?>

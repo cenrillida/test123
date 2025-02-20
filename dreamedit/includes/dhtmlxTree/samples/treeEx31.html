@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<meta name="KEYWORDS" content="dhtmlxtree, dhtml tree, javascript tree, javascript, DHTML, tree, tree menu, dynamical loading, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, treeview, navigation, menu, tree control, script, javascript navigation, web-site, dynamic, javascript tree menu, dhtml tree menu, dynamic tree, folder tree, item, node, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+<meta name="DESCRIPTION" content="Cross-browser JavaScript tree menu with AJAX support. Dynamical loading of items from XML stream gives a possibility to create DHTML trees with unlimited number of nodes.">
+
+<title>DHTML JavaScirpt Tree samples - dhtmlxTree - Autoloading from XML</title>
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Tree samples</div>
+	<h1>Autoloading from XML</h1>
+	<p>Advanced processing of XML allows this JavaScript tree menu to handle large amounts of data. 
+	Dynamical loading of items from XML stream gives a possibility to create DHTML trees with unlimited 
+	number of nodes. dhtmlxTree has an ability to load data asynchronously as-needed (using AJAX) 
+	that increases overall performance of the tree.</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXTree.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXTree.js"></script>		
+
+	<table>
+		<tr>
+			<td valign="top">
+<!--- [ Scand: 				<div id="treeboxbox_tree2" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;"></div>
+				<br>
+				<br>   ] --->
+
+				<div id="treeboxbox_tree" style="width:250; height:218;background-color:#f5f5f5;border :1px solid Silver;; overflow:auto;"></div>
+			</td>
+			<td rowspan="2" style="padding-left:25" valign="top">
+			Tree has unlimmited level count. Each new level loaded from asp script.
+
+
+
+
+
+
+			
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+			<hr>	
+<XMP>
+<div id="treeboxbox_tree" style="width:200;height:200"></div>
+<script>
+	tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../imgs/");
+			//link tree to asp script
+			tree.setXMLAutoLoading("xml.php"); 
+			
+			//load first level of tree
+			tree.loadXML("xml.asp?id=0"); 
+</script>
+</XMP>	
+	<script>
+			tree=new dhtmlXTreeObject("treeboxbox_tree","100%","100%",0);
+			tree.setImagePath("../imgs/");
+			tree.setXMLAutoLoading("xml.php");
+			tree.loadXML("xml.php?id=0");
+
+	</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxTree/index.shtml" style="font-weight:bold;">Go to the dhtmlxTree main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+</body>
+</html>

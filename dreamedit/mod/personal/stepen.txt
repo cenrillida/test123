@@ -1,0 +1,317 @@
+Редактирование (edit)
+
+<?
+
+  global $DB,$_CONFIG;
+  $news=$DB->select("SELECT * FROM persona_user WHERE id_persona=".$_REQUEST['oi']);
+  if (count($news)>0)
+  {
+     echo "<br /><font color=red><b>Есть ввод от пользователя<b></font>"; $new=$news[0];
+  }
+$cow='';
+
+  if (!empty($new[photo]))
+     echo "<br /><img src=../photo_bank/".$new[photo]. ">";
+
+  $result =  $DB->select('SELECT * from persons where id='.$_REQUEST['oi']);
+
+//Проверить, нет ли изменений
+
+echo "<br /><font color='red'>".$rowsnew[0][comment]."</font>";
+
+  foreach($result as $cow) {
+}
+
+
+?>
+
+<form enctype="multipart/form-data" action=index.php?mod=personal&oper=add method=post>
+<input type=hidden value=<? echo $cow[oi]; ?> name=reid>
+<input type=hidden value=do name=test>
+<input type=hidden name=oi value=<? echo $_GET['oi']; ?>>
+<table>
+ <tr>
+  <td width='60%'>
+   <b>Фамилия</b><br />
+   <input type=text name=surname value=<? echo $cow[surname]; ?> >
+  <br />
+   <b>Имя</b><br />
+   <input type=text name=name value=<? echo $cow[name]; ?>>
+
+  <br />
+   <b>Отчество</b><br />
+      <input type=text name=fname value=<? echo $cow[fname]; ?>>
+   <br />
+<?
+   if (!empty($news[0][fio_en]))
+	   echo "<font color=red><b>".$news[0][fio_en]."</b></font><br />";
+?>
+   <b>ФИО на английском: </b>
+      <input type=text size=100 name=Autor_en value='<? echo $cow[Autor_en]; ?>'>
+
+   <br /><br />
+   <b>Заменить фотографии</b> <br />
+   Фото 63x84
+   <br>
+   <input type="hidden" name="MAX_FILE_SIZE" value="3000000">
+   <input name="pic1" type="file">
+   <br />
+   Фото 180x240
+   <br>
+   <input name=pic2 type="file"><br>
+   <?
+ echo "</td><td>";
+ echo "<img width=63 height=84 src='https://".
+        $_CONFIG['global']['paths'][site].$_CONFIG['global']['paths']['admin_dir']."foto/".$cow[picsmall]."' />";
+  echo '&nbsp;&nbsp;&nbsp;';
+ echo "<img width=180 height=240 src='https://".
+        $_CONFIG['global']['paths'][site].$_CONFIG['global']['paths']['admin_dir']."foto/".$cow[picbig]."' />";
+?>
+  </td>
+ </tr>
+</table>
+
+
+
+
+
+<?
+global $DB,$_CONFIG;
+$buffer="";
+$qq='';
+$buffer=$DB->select("SELECT c.el_id AS id,c.icont_text AS full
+						FROM adm_directories_content AS c
+                        INNER JOIN adm_directories_element AS e ON e.el_id=c.el_id AND itype_id=7
+						WHERE icont_var='text'
+							ORDER BY c.icont_text");
+
+//Выбор ученой степени
+
+echo "<br><b>Ученая степень</b><br>
+<select name=us><option value='-1'></option>";
+//<option value='".$cow[4]."'>".$qq[$cow[4]]."</option><option value=-1>&nbsp;</option>";
+
+foreach($buffer as $qq)
+{
+//for($i=0; $i < count($qq); $i++)
+ if (($cow[us]) == $qq[id]) $sel='selected'; else $sel="";
+ echo "<option value='".$qq[id]."' ".$sel.">".$qq[full]."</option>";
+}
+echo "</select>";
+
+echo "<br>";
+
+$buffer="";
+$qq='';
+$buffer=$DB->select("SELECT c.el_id AS id,c.icont_text AS full
+						FROM adm_directories_content AS c
+                        INNER JOIN adm_directories_element AS e ON e.el_id=c.el_id AND itype_id=8
+						WHERE icont_var='text'
+							ORDER BY c.icont_text");
+
+//Выбор ученой степени
+
+echo "<br><b>Ученое звание</b><br>
+<select name=uz>";
+//<option value='".$cow[5]."'>".$qq[$cow[5]].
+echo "</option><option value=-1>&nbsp;</option>";
+foreach($buffer as $qq)
+{
+ if (($cow[uz]) == $qq[id]) $sel='selected'; else $sel="";
+ echo "<option value='".$qq[id]."' ".$sel.">".$qq[full]."</option>";
+}
+echo "</select>";
+
+$rans=$DB->select("SELECT c.el_id AS id,c.icont_text AS full FROM adm_directories_content AS c
+                  INNER JOIN adm_directories_element AS e ON e.el_id=c.el_id AND itype_id=10
+						WHERE icont_var='value'
+						ORDER BY c.icont_text");
+?>
+
+<br><br>
+<b>Членство в РАН</b>
+<br>
+<?
+echo "<select name=4len><option value=''></option>";
+
+foreach($rans as $qq)
+{
+
+ if (($cow[ran]) == $qq[id]) $sel='selected'; else $sel="";
+ 	echo "<option value='".$qq[id]."' ".$sel.">".$qq[full]."</option>";
+}
+?>
+</select>
+
+<br><br>
+<b>Дополнительные регалии</b>
+<br>
+<font color=red><b><?=@$new[regalii]?></font></b><br />
+<textarea cols=100 rows=5 name=rewards><? echo $cow[rewards]; ?></textarea>
+<br />
+<b>Дополнительные регалии на английском</b>
+<br>
+<textarea cols=100 rows=5 name=rewards_en><? echo $cow[rewards_en]; ?></textarea>
+<?
+
+$buffer="";
+$qq='';
+$buffer=$DB->select("SELECT c.el_id AS id,c.icont_text AS text
+                      FROM adm_directories_content AS c
+                      INNER JOIN adm_directories_element AS e ON e.el_id=c.el_id AND itype_id=9
+						WHERE icont_var='text'
+							ORDER BY c.icont_text");
+
+//Выбор должности
+
+?>
+<br>
+<?
+echo "<br><b>Должность</b><br><select name=dolj><option value='-1'></option>";
+foreach ($buffer as $qq)
+{
+ if ($qq[id]==($cow[dolj])) $sel=' selected ';else $sel='';
+ echo "<option value='".($qq[id])."' ".$sel.">".$qq[text]."</option>";
+}
+echo "</select>";
+?>
+<br /><br />
+<b>Строка для сайта</b>
+<br>
+<textarea cols=100 rows=2 name=ForSite><? echo $cow['ForSite']; ?></textarea>
+<br />
+<b>Строка для сайта на английском</b>
+<br>
+<textarea cols=100 rows=2 name=ForSite_en><? echo $cow['ForSite_en']; ?></textarea>
+<br>
+<br />
+<b>Подразделение</b><br />
+<? $_POST[otd_name]='otdel';?>
+<? include 'mod/personal/addentry/otdel.php'; ?>
+<!-- -->
+<b>Бывшее подразделение (для умерших сотрудников)</b><br />
+<? $_POST[otd_name]='otdel_old';?>
+<? include 'mod/personal/addentry/otdel.php'; ?>
+
+
+<br >
+<strong>Контактная информация</string>
+<br /><font color=red><b>
+<?
+    echo $news[0][email]." | ".$news[0][tel];
+?>
+    </b></font>
+<table cellspacing=3 width=70%><tr>
+<td valign='top'><b>Телефон публичный</b>
+<br>
+<input name=tel1 value='<? echo $cow[tel1]; ?>' >
+</td>
+<td valign='top'><b>Телефон для администрации</b>
+<br>
+<input name=tel2 value='<? echo $cow[tel2]; ?>' >
+</td></tr>
+<tr>
+<td><b>e-mail публичный</b>
+<br>
+<input name=mail1 value=<? echo $cow[mail1]; ?> >
+</td>
+<td><b>e-mail для администрации</b>
+<br>
+<input name=mail2 value=<? echo $cow[mail2]; ?> >
+</td>
+<td width=250 align=right><input type=submit value="Проверить">
+</td>
+</tr></table>
+
+<br>
+<b>О себе</b>
+<br>
+<font color=red><b>Новые данные</b></font><br />
+
+<?
+
+//include("/../../../includes/FCKEditor/fckeditor.php") ;
+
+include($_CONFIG["global"]["paths"][admin_path]."/includes/FCKEditor/fckeditor.php") ;
+
+$oFCKeditor = new FCKeditor('about_new') ;
+$oFCKeditor->BasePath   = "/dreamedit/includes/FCKEditor/" ;
+$oFCKeditor->Value              =
+  "<b>Область научных интересов:</b><br />".$news[0][nauka]."<br />".
+  "<b>Диссертации:</b><br />".$news[0][disser]."<br />".
+  "<b>Количество публикаций:</b><br />".$news[0][publs]."<br />".
+  "<b>Текст «О себе»:</b><br />".$news[0][about];
+
+$oFCKeditor->Create() ;
+?>
+
+<br>
+<b>О себе</b>
+<br>
+
+<?
+
+//include("/../../../includes/FCKEditor/fckeditor.php") ;
+
+include($_CONFIG["global"]["paths"][admin_path]."/includes/FCKEditor/fckeditor.php") ;
+
+$oFCKeditor = new FCKeditor('about') ;
+$oFCKeditor->BasePath   = "/dreamedit/includes/FCKEditor/" ;
+$oFCKeditor->Value              = $cow[about];
+$oFCKeditor->Create() ;
+?>
+<br>
+<b>О себе на английском</b>
+<br>
+<font color=red><b>Новые данные</b></font><br />
+<?
+
+//include("/../../../includes/FCKEditor/fckeditor.php") ;
+
+include($_CONFIG["global"]["paths"][admin_path]."/includes/FCKEditor/fckeditor.php") ;
+
+$oFCKeditor = new FCKeditor('about_en_new') ;
+$oFCKeditor->BasePath   = "/dreamedit/includes/FCKEditor/" ;
+$oFCKeditor->Value              =  $news[0][about_en];
+$oFCKeditor->Create() ;
+?>
+
+<br>
+<b>О себе на английском</b>
+<br>
+
+
+<?
+
+//include("/../../../includes/FCKEditor/fckeditor.php") ;
+
+include($_CONFIG["global"]["paths"][admin_path]."/includes/FCKEditor/fckeditor.php") ;
+
+$oFCKeditor = new FCKeditor('about_en') ;
+$oFCKeditor->BasePath   = "/dreamedit/includes/FCKEditor/" ;
+$oFCKeditor->Value              = $cow[about_en];
+$oFCKeditor->Create() ;
+?>
+
+<br>
+
+<input type=checkbox name=ruk
+<? if($cow[11]==1) echo checked; ?>
+ >&nbsp;Руководитель
+<br>
+<input type=checkbox name=usp
+<? if($cow[12]==1) echo checked; ?>
+ >&nbsp;Ученый секретарь подразделения
+<br>
+<input type=checkbox name='full'
+<? if($cow[full']==1) echo checked; ?>
+ >&nbsp;Разрешено использование персональных данных
+<br>
+<br>
+
+
+<br><br>
+<input type=submit value="Проверить">
+
+
+</form>

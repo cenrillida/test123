@@ -1,0 +1,1 @@
+<div class="mod_block" mod="<?=@$_TPL_REPLACMENT["NAME"]?>" onmouseover="modBlockOver(this);" onclick="modBlockClick(this);" onmouseout="modBlockOut(this);"><img src="<?=@$_TPL_REPLACMENT["SKIN_PATH"]?>images/mod/<?=@$_TPL_REPLACMENT["IMG"]?>" /><h4><?=@$_TPL_REPLACMENT["TITLE"]?></h4><?=@$_TPL_REPLACMENT["DESCRIPTION"]?></div>

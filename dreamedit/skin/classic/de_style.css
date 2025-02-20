@@ -1,0 +1,309 @@
+BODY, IMG, DIV, FORM, SPAN, TABLE, TD, H1, H2, H3, H4 {
+	BORDER: none;
+	MARGIN: 0px;
+	PADDING: 0px;
+}
+
+BODY {
+	BACKGROUND: #d8d8d8;
+	SCROLLBAR-3DLIGHT-COLOR: #fbfbfe; 
+	SCROLLBAR-ARROW-COLOR: #fbfbfe; 
+	SCROLLBAR-DARKSHADOW-COLOR: #fbfbfe; 
+	SCROLLBAR-FACE-COLOR: #a8a7a7; 
+	SCROLLBAR-HIGHLIGHT-COLOR: #a8a7a7; 
+	SCROLLBAR-SHADOW-COLOR: #a8a7a7;
+	SCROLLBAR-TRACK-COLOR: #fbfbfe;
+	OVERFLOW: hidden;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+}
+
+BODY.dialog_window {
+	BACKGROUND: #ffffff;
+	PADDING: 5px;
+	OVERFLOW: auto;
+}
+
+TABLE {
+	BORDER-COLLAPSE: collapse;
+}
+
+A {
+	TEXT-DECORATION: none;
+}
+
+H2 {
+	BACKGROUND:  #d8d8d8;
+	BORDER: 1px solid #a7a7a7;
+	BORDER-BOTTOM: none;
+	MARGIN: 0px 0px 0px 0px;
+	PADDING: 2px 12px 0px 12px;
+	HEIGHT: 20px;
+	FONT: bold 13px arial;
+	COLOR: #ffffff;
+}
+
+DIV.loading {
+	BACKGROUND: #d8d8d8;
+	WIDTH: 100%;
+	HEIGHT: 100%;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 12px;
+	POSITION: absolute;
+	Z-INDEX: 2;
+	TEXT-ALIGN: center;
+}
+
+/************** login form *****************/
+
+TABLE.login TD {
+	VERTICAL-ALIGN: middle;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+}
+
+TABLE.login TD FORM INPUT, BUTTON {
+	BACKGROUND: #FAFAFA;
+	BORDER: 1px solid #BDBDBD;
+	WIDTH: 120px;
+	HEIGHT: 16px;
+	FONT: 10px tahoma;
+	COLOR: #7c7c7c;
+}
+
+TABLE.login TD FORM INPUT.form_button, BUTTON {
+	WIDTH: 60px;
+	FONT: bold 10px tahoma;
+}
+
+/************** content style *****************/
+
+TR.top_row TD {
+	BORDER-BOTTOM: 1px solid #f2f2f2;
+}
+
+TR.top_row TD DIV {
+	HEIGHT: 60px;
+}
+
+TR.top_row TD DIV DIV {
+	POSITION: absolute;
+	TOP: 46;
+	LEFT: 22px;
+/*	MARGIN: 50px 0px 0px 0px;*/
+	FONT: 10px tahoma;
+}
+
+IMG.logo {
+	MARGIN: 7px 0px 0px 7px;
+}
+
+DIV.left_block, DIV.right_block {
+	BACKGROUND: #ffffff;
+	BORDER: 1px solid #a7a7a7;
+	PADDING: 10px;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+	OVERFLOW: auto;
+	SCROLLBAR-3DLIGHT-COLOR: #fbfbfe; 
+	SCROLLBAR-ARROW-COLOR: #fbfbfe; 
+	SCROLLBAR-DARKSHADOW-COLOR: #fbfbfe; 
+	SCROLLBAR-FACE-COLOR: #a8a7a7; 
+	SCROLLBAR-HIGHLIGHT-COLOR: #a8a7a7; 
+	SCROLLBAR-SHADOW-COLOR: #a8a7a7;
+	SCROLLBAR-TRACK-COLOR: #fbfbfe;
+}
+
+
+
+
+
+
+
+
+/*********************** button_block individual style ***************************/
+DIV.button_block {
+	PADDING: 14px 10px 0px 0px;
+	HEIGHT: 60px;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+}
+
+HTML>body DIV.button_block {
+	HEIGHT: 46px;
+}
+
+DIV.button_block IMG {
+	MARGIN: 0px 5px;
+	WIDTH: 32px;
+	HEIGHT: 32px;
+	CURSOR: hand;
+	CURSOR: pointer;
+}
+
+
+
+
+
+
+
+/*********************** left block individual style ***************************/
+
+DIV.left_block DIV {
+	BORDER: 1px solid #FFFFFF;
+	MARGIN: 1px 0px;
+	PADDING: 4px 2px;
+	CURSOR: hand;
+	CURSOR: pointer;
+}
+
+DIV.left_block DIV.left_block_over {
+	BORDER: 1px solid #000000;
+	COLOR: #000000;
+}
+
+DIV.left_block DIV.left_block_out {
+	BORDER: 1px solid #FFFFFF;
+	COLOR: #7c7c7c;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*********************** right block individual style ***************************/
+
+DIV.right_block {
+
+}
+
+DIV.right_block TABLE, DIV.right_block TABLE TD, DIV.right_block P {
+	PADDING: 3px;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+}
+
+DIV.right_block INPUT, DIV.right_block TEXTAREA, DIV.right_block SELECT {
+	BACKGROUND: #FFFFFF;
+	BORDER: 1px solid #7c7c7c;
+	PADDING: 1px 3px;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+}
+
+DIV.right_block DIV.mod_block {
+	BORDER: 2px solid #FFFFFF;	
+	HEIGHT: 47px;
+	MARGIN: 2px 0px;
+	PADDING: 3px 5px;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+	VERTICAL-ALIGN: top;
+	CURSOR: hand;
+	CURSOR: pointer;
+}
+HTML>body DIV.right_block DIV.mod_block {
+	HEIGHT: 37px;
+}
+
+DIV.right_block DIV.mod_block_active {
+	BORDER-COLOR: red;
+}
+
+DIV.right_block DIV.mod_block H4 {
+	FONT: bold 11px tahoma;
+	COLOR: red;
+}
+
+DIV.right_block DIV.mod_block IMG {
+	WIDTH: 37px;
+	HEIGHT: 37px;
+	MARGIN-RIGHT: 7px;
+	FLOAT: left;
+}
+
+DIV.right_block P.form_help {
+	MARGIN: 0px 0px 5px 0px;
+	PADDING: 0px;
+	COLOR: #bbbbbb;
+}
+
+DIV.right_block H1.form_header {
+	MARGIN: 5px 0px 5px 0px;
+	FONT: 17px tahoma;
+	COLOR: #829ba1;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*********************** menu block individual style ***************************/
+
+DIV.menu_block {
+	BACKGROUND: url("../images/menu_bg.gif") top right repeat-y;
+	WIDTH: 45px;
+	POSITION: absolute;
+	LEFT: -35px;
+	FONT: 11px tahoma;
+	COLOR: #7c7c7c;
+	TEXT-ALIGN: right;
+}
+
+DIV.menu_block A {
+	DISPLAY: block;
+	COLOR: #7c7c7c;
+	MARGIN: 3px 10px 3px 0px;
+}
+
+
+/*********************** addition style ***************************/
+
+.error {
+	COLOR: #FF0000;
+}
+
+H4.error {
+	FONT: bold 13px tahoma;
+}
+
+SPAN.required {
+	COLOR: red;
+}
+
+.subtree {
+	BACKGROUND: #FFFFFF;
+	BORDER: 1px solid #a7a7a7;
+	PADDING: 5px;
+	WIDTH: 220px;
+	HEIGHT: 200px;
+	FLOAT: right;
+	POSITION: absolute;
+	RIGHT: 20px;
+	OVERFLOW: auto;
+}
+
+
+TD.checktree SPAN {
+	MARGIN: 0px 7px;
+	CURSOR: hand;
+	CURSOR: pointer;
+}
+
+TD.checktree INPUT {
+	BORDER: none !important;
+	PADDING: 0px !important;
+	MARGIN: 0px !important;
+}

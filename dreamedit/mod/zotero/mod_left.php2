@@ -1,0 +1,10 @@
+
+<form method=post action=index.php?mod=public&act=search>
+ <font size=2>Название публикации</font><br>
+ <input type=text name=s-name>
+ <br><br>
+ <input type=submit value='Искать'>
+</form>
+
+<br><br>
+<a href=index.php?mod=public&act=set>Настройки модуля</a>

@@ -1,0 +1,70 @@
+RewriteEngine on
+Options +FollowSymlinks
+Options -Indexes
+RewriteBase /
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{REQUEST_FILENAME}	!-f
+RewriteCond %{REQUEST_FILENAME}	!-d
+RewriteRule (.*) /index.php [L]
+order allow,deny
+deny from 180.76.15
+deny from 136.243.36.90
+deny from 68.180.230
+deny from 176.14.78.132
+deny from 105.106.16.10
+deny from 45.56.148.53
+deny from 192.80.8.20
+deny from 128.70.251.244
+deny from 109.252.5.152
+deny from 78.46.174.55
+deny from 216.244.66.247
+deny from 125.209.235.168
+deny from 164.132.161.3
+deny from 51.255.65.92
+deny from 41.8.142.19
+deny from 5.255.253.15
+deny from 66.249.64.6
+deny from 185.20.99.96
+deny from 162.243.123.251
+deny from 54.161.172.52
+deny from 141.8.132.71
+deny from 157.55.39.244
+deny from 141.8.142.19
+deny from 202.46.56.95
+deny from 216.244.66.230
+deny from 117.1.106.198
+deny from 78.85.178.69
+deny from 93.158.152.7
+deny from 141.8.132.55
+deny from 141.8.184.29
+deny from 141.8.142.13
+deny from 178.154.189.33
+deny from 37.9.113.12
+deny from 5.255.253.72
+deny from 54.205.167.250
+deny from 62.117.111.162
+deny from 178.154.189.17
+deny from 207.46.13.206
+deny from 89.169.155.248
+deny from 52.50.131.175
+deny from 68.180.231.23
+deny from 85.248.227.163
+deny from 141.8.142.159
+deny from 93.157.169.15
+deny from 5.255.253.29
+deny from 141.8.132.18
+deny from 164.132.161.24
+deny from 178.210.90.90
+deny from 87.250.224.25
+deny from 5.255.253.69
+deny from 178.154.189.20
+deny from 37.9.113.20
+deny from 178.154.200.26
+deny from 93.158.152.5
+deny from 198.52.125.48
+#deny from 141.8.*.*
+allow from all
+<Files mail_auth.ini>
+order allow,deny
+deny from all
+</Files>

@@ -1,0 +1,2 @@
+SetEnv force-no-vary
+SetEnv downgrade-1.0

@@ -1,0 +1,61 @@
+<?
+global $DB, $_CONFIG, $site_templater;
+
+$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."top.html");
+?>
+<div class="content">
+	<h1>{CONTENT_HEADER}</h1>
+	<form action="" method="GET" id="sear_full">
+		Поиск <input type="text" name="search" value="<?=$_REQUEST["search"]?>" /><input type="submit" value="искать" style="background:none;" /><br />
+<!-- 		На страницах сайта<input type="checkbox" name="pages" value="1" <?=isset($_REQUEST["pages"])? "checked": ""?> /><br /> -->
+<!-- 	В информационных лентах	<input type="checkbox" name="ilines" value="1" <?=isset($_REQUEST["ilines"])? "checked": ""?> /> -->
+	</form>
+	<br />	
+
+	<?
+
+	$pages_cont_res = $DB->select(
+		"SELECT * FROM ?_pages_content WHERE cv_text LIKE '%".$_REQUEST["search"]."%'"
+	);
+
+	$pages_cont = array();
+	foreach($pages_cont_res as $v)
+		$pages_cont_tmp[$v["page_id"]][$v["cv_name"]] = $v["cv_text"];
+
+	$rows =  @$DB->select(
+		"SELECT ".
+			"?_pages.page_id AS ARRAY_KEY, ".
+			"?_pages.* ".
+		"FROM ?_pages ".
+		"WHERE ".
+			"page_status  = 1 ".
+			"AND page_link = '' ".
+			"AND page_id IN (?a) ".
+		"ORDER BY ".
+			"page_name ASC", 
+
+		array_keys($pages_cont_tmp)
+	);
+
+//	$parents =  $pg->getChilds(2);
+
+	echo "<b>По вашему запросу найдено ".count($rows)." документов.</b><br /><br />";
+
+	if(empty($rows))
+		return;
+
+	$pg = new Pages();
+	$pages_cont = array();
+	$i = 0;
+	foreach($rows as $k => $v)
+	{
+		?>
+			<?=++$i?>.&nbsp;<a href="<?=$pg->getPageUrl($v["page_id"])?>"><?=$v["page_name"]?></a><br />
+		<?
+	}
+
+	?>
+</div>
+<?
+$site_templater->displayResultFromPath($_CONFIG["global"]["paths"]["template_path"]."bottom.html");
+?>

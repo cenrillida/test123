@@ -1,0 +1,285 @@
+#navigation {
+    line-height: 33px;
+}
+
+
+#menu {
+    position: relative;
+    z-index: 200;
+}
+
+#topnav {
+    background: white;
+    margin-left: 3px;
+    
+}
+
+
+#topnav a.first-level {
+    color: black;
+    text-shadow: 0px 0px 0 #444444;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    font-family: Tahoma,Arial;
+    text-decoration: none;
+    padding: 0 10px;
+}
+#topnav a.first-level-text {
+    color: black;
+    text-shadow: 0px 0px 0 #444444;
+    background-color: #ebebeb;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    font-family: Tahoma,Arial;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+#topnav li:hover a.first-level {
+    background: /*url("/images/back_menu_sec1.gif") repeat-x scroll left top*/ #ffffff;
+    color: #262626;
+    text-shadow: 1px 1px 0 #ffffff;
+
+    border: medium none;
+    
+}
+#topnav li:hover a.first-level-text {
+    background: /*url("/images/back_menu_sec1.gif") repeat-x scroll left top*/ #ffffff;
+    color: #262626;
+    background-color: #ebebeb;
+    text-shadow: 1px 1px 0 #ffffff;
+
+    border: medium none;
+    
+}
+
+#topnav a.razdel-r {
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0 #444444;
+    text-transform: uppercase;
+    
+    cursor: pointer;
+    display: block;
+    font-family: Tahoma,Arial;
+    text-decoration: none;
+    text-indent: -9999px;
+    
+    
+    padding-left: 11px;  
+    padding-right: 11px;
+}
+
+
+#topnav li:hover a.razdel-r {
+    background: /*url("/images/back_menu_sec1.gif") repeat-x scroll left top*/ #ffffff;
+    color: #262626;
+    text-shadow: 1px 1px 0 #ffffff;
+
+    border: medium none;
+    
+}
+
+#topnav li.home {
+    border: medium none;
+    padding-left: 0;
+    padding-right: 0;
+}
+#topnav li.home a{
+    padding-left: 0;
+    padding-right: 0;
+}
+#topnav li.first-level {
+    border-right: 0px solid #777777;
+    }
+
+#topnav li.razdel-r {
+    background: url("/images/back_menu_razdel.png") no-repeat scroll left bottom transparent;
+    }
+
+#topnav li {
+    display: inline;
+    float: left;
+    font-size: 12px;
+    /*font-weight: bold;*/
+    padding: 0 0px;
+}
+
+
+
+
+#nav-left div.topnav-dd-outer {
+    margin-left: -176px;
+}
+#nav-left div.topnav-dd-outer-featured {
+    margin-left: -9px;
+}
+#nav-center div.topnav-dd-outer {
+    margin-left: -75px;
+}
+#nav-center div.topnav-dd-outer-featured {
+    margin-left: -260px;
+}
+#nav-right div.topnav-dd-outer {
+    margin-left: -145px;
+}
+#nav-right div.topnav-dd-outer-featured {
+    margin-left: -350px;
+}
+ul#topnav li div.topnav-dd-outer {
+    background: url("/images/bg-nav-left-edge-trans.png") no-repeat scroll left bottom transparent;
+    left: -999em;
+    position: absolute;
+    width: 426px;
+    z-index: 999;
+}
+ul#topnav li div.topnav-dd-outer-one-col-featured {
+    width: 461px;
+}
+ul#topnav li div.topnav-dd-outer-one-col {
+    width: 276px;
+}
+ul#topnav li div.topnav-dd-outer-two-col-featured {
+    width: 651px;
+}
+ul#topnav li div.topnav-dd-outer-two-col {
+    width: 466px;
+}
+ul#topnav li div.topnav-dd-outer-three-col-featured {
+    width: 841px;
+}
+ul#topnav li div.topnav-dd-outer-three-col {
+    width: 656px;
+}
+div.topnav-dd-inner {
+    background: url("/images/bg-nav-right-edge-trans.png") no-repeat scroll right bottom transparent;
+    margin-bottom: -5px;
+    margin-left: 17px;
+    overflow: auto;
+    padding: 0 0 17px;
+}
+ul#topnav li:hover div.topnav-dd-outer {
+    left: auto;
+}
+ul#topnav li.first-level ul {
+    display: block;
+    float: left;
+    font-family: arial;
+    margin: 0 0 0 10px;
+    padding: 20px 0 5px;
+    width: 410px;
+}
+ul#topnav li.first-level ul li {
+    float: left;
+    margin: 0 0 13px;
+    min-height: 12px;
+    padding: 0;
+    width: 100%;
+}
+ul#topnav li.first-level ul li a {
+    color: #0F4F89;
+    
+    font: bold 12px arial;
+    min-height: 12px;
+    text-decoration: none;
+    text-transform: none;
+}
+ul#topnav li.first-level ul li a:hover {
+    text-decoration: underline;
+}
+ul#topnav li.first-level ul.topnav-dd-inner-sub {
+    margin: 0;
+    padding: 0;
+}
+
+ul#topnav li.razdel-r ul {
+    display: block;
+    float: left;
+    font-family: arial;
+    margin: 0 0 0 10px;
+    padding: 20px 0 5px;
+    width: 180px;
+}
+ul#topnav li.razdel-r ul li {
+    float: left;
+    margin: 0 0 13px;
+    min-height: 12px;
+    padding: 0;
+    width: 180px;
+}
+ul#topnav li.razdel-r ul li a {
+    color: #0F4F89;
+    
+    font: bold 12px arial;
+    min-height: 12px;
+    text-decoration: none;
+    text-transform: none;
+}
+ul#topnav li.razdel-r ul li a:hover {
+    text-decoration: underline;
+}
+ul#topnav li.razdel-r ul.topnav-dd-inner-sub {
+    margin: 0;
+    padding: 0;
+}
+ul#topnav div.topnav-feature {
+    background: url("/images/bg-nav-featured-right.png") no-repeat scroll left top transparent;
+    color: #333333;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    overflow: hidden;
+    padding: 18px 10px 18px 40px;
+    width: 185px;
+}
+ul#topnav div.topnav-feature a {
+    color: #0F4F89;
+    min-height: 12px;
+}
+ul#topnav div.topnav-feature h3 {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0 0 7px;
+    min-height: 12px;
+    padding: 0;
+}
+ul#topnav div.topnav-feature p {
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0 0 7px;
+    min-height: 12px;
+    padding: 0;
+}
+ul#topnav div.topnav-feature hr {
+    margin: 10px 0;
+}
+ul#topnav li.first-level ul.topnav-dd-inner-sub {
+    margin: 0;
+    padding: 0;
+}
+ul#topnav li.first-level ul.topnav-dd-inner-sub li {
+    line-height: 12px;
+    list-style: square outside none;
+    margin: 0 0 0 10px;
+}
+ul#topnav li.first-level ul.topnav-dd-inner-sub li a {
+    font-weight: normal;
+}
+
+ul#topnav li.razdel-r ul.topnav-dd-inner-sub {
+    margin: 0;
+    padding: 0;
+}
+ul#topnav li.razdel-r ul.topnav-dd-inner-sub li {
+    line-height: 12px;
+    list-style: square outside none;
+    margin: 0 0 0 10px;
+}
+ul#topnav li.razdel-r ul.topnav-dd-inner-sub li a {
+    font-weight: normal;
+}
+
+.topnav-dd-outer{
+line-height: 16px;
+}
